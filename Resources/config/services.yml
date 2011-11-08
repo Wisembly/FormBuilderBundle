@@ -1,0 +1,12 @@
+parameters:
+    balloon_form_repository:    Balloon\Bundle\FormBuilderBundle\Entity\Form
+    balloon_form_builder.class: Balloon\Bundle\FormBuilderBundle\Model\FormBuilder
+    balloon_form_manager.class: Balloon\Bundle\FormBuilderBundle\Model\FormManager
+
+services:
+    balloon_form_builder:
+        class: %balloon_form_builder.class%
+        arguments: [@form.factory, %balloon_form_config%]
+    balloon_form_manager:
+        class: %balloon_form_manager.class%
+        arguments: [@session, @doctrine.orm.entity_manager, %balloon_form_repository%]

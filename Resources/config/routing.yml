@@ -1,0 +1,11 @@
+form_create:
+    pattern:  /form/create
+    defaults: { _controller: BalloonFormBuilderBundle:Form:create }
+
+form_edit:
+    pattern:  /form/edit/{id}
+    defaults: { _controller: BalloonFormBuilderBundle:Form:edit }
+
+form_field_create:
+    pattern:  /field/create/{type}/{id}
+    defaults: { _controller: BalloonFormBuilderBundle:FormField:create }
