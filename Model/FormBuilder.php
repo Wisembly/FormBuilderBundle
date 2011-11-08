@@ -13,25 +13,27 @@ class FormBuilder
     public function __construct(FormFactory $formFactory, $fieldConfig)
     {
         $this->formFactory = $formFactory;
-        $this->fieldConfig = $fieldConfig['fields'];
+        $this->fieldConfig = $fieldConfig;
     }
 
     public function buildFields(array $fields)
     {
         $builder = $this->formFactory->createBuilder('form');
 
-        foreach ($fields as $field) {
-            if (!$field instanceof FormFieldInterface) {
-                throw new \ErrorException('argument should only contains instances of FormFieldInterface');
+        foreach ($fields as $i => $field) {
+            if ($field instanceof FormFieldInterface) {
+                $builder->add($field->getId(), $field->getType(), $field->getOptions());
+            } else {
+                $type = $field['type'];
+                unset($field['type']);
+                $builder->add((string)$i, $type, $field);
             }
-
-            $builder->add($field->getId(), $field->getType(), $field->getOptions());
         }
 
         return $builder->getForm();
     }
 
-    public function buildType($name)
+    public function buildType($name, array $data = array())
     {
         if (!$this->formFactory->hasType($name)) {
             throw new \InvalidArgumentException("Field of type '$name' do not exists");
@@ -40,15 +42,31 @@ class FormBuilder
         $type = $this->formFactory->getType($name);
 
         $defaultOptions = array();
-        foreach ($type->getDefaultOptions(array()) as $key => $val) {
-            if (!isset($this->fieldConfig[$name]) || false !== array_search($key, $this->fieldConfig[$name])) {
-                $defaultOptions[$key] = $val;
+        $configOptions = $this->fieldConfig[$name];
+        $fieldOptions = $type->getDefaultOptions(array());
+
+        foreach ($configOptions as $option) {
+            // default value
+            $val = null;
+
+            // if option exists set the default value
+            if (isset($fieldOptions[$option])) {
+                $val = $fieldOptions[$option];
+            }
+
+            // if value is an array create some fields
+            if (is_array($val) && empty($val)) {
+                $val = range(0, 4);
+            }
+
+            if (!isset($data[$option])) {
+                $data[$option] = $val;
             }
         }
 
-        $builder = $this->formFactory->createBuilder('form', $defaultOptions);
+        $builder = $this->formFactory->createBuilder('form', $data);
 
-        foreach ($defaultOptions as $key => $val) {
+        foreach ($data as $key => $val) {
             switch(gettype($val)) {
                 case 'boolean':
                     $builder->add($key, new \Symfony\Component\Form\Extension\Core\Type\CheckboxType());
@@ -62,6 +80,10 @@ class FormBuilder
                     ));
                     break;
                 case 'array':
+                    $builder->add($key, new \Symfony\Component\Form\Extension\Core\Type\CollectionType(), array(
+                        'allow_add'     => true,
+                        'allow_delete'  => true,
+                    ));
                     break;
                 default:
                     throw new \InvalidArgumentException('unsupported type '. gettype($val));

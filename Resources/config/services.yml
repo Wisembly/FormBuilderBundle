@@ -1,7 +1,7 @@
 parameters:
-    balloon_form_repository:    Balloon\Bundle\FormBuilderBundle\Entity\Form
     balloon_form_builder.class: Balloon\Bundle\FormBuilderBundle\Model\FormBuilder
     balloon_form_manager.class: Balloon\Bundle\FormBuilderBundle\Model\FormManager
+    balloon_form_factory.class: Balloon\Bundle\FormBuilderBundle\Model\FormFactory
 
 services:
     balloon_form_builder:
@@ -9,4 +9,7 @@ services:
         arguments: [@form.factory, %balloon_form_config%]
     balloon_form_manager:
         class: %balloon_form_manager.class%
-        arguments: [@session, @doctrine.orm.entity_manager, %balloon_form_repository%]
+        arguments: [@session, @doctrine.orm.entity_manager, %balloon_form_entity%]
+    balloon_form_factory:
+        class: %balloon_form_factory.class%
+        arguments: [%balloon_field_entity%]

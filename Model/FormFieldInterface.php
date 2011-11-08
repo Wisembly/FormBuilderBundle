@@ -7,12 +7,20 @@ interface FormFieldInterface
     /**
      * @return string
      */
-    public function getName();
+    public function getType();
 
     /**
-     * @return array
+     * @return string
      */
-    public function getFields();
+    public function setType($type);
 
-    public function addField(FieldInterface $field);
+    /**
+     * @return string
+     */
+    public function getOptions();
+
+    /**
+     * @return string
+     */
+    public function setOptions(array $options);
 }

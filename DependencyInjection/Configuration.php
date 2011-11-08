@@ -25,6 +25,12 @@ class Configuration implements ConfigurationInterface
         // more information on that topic.
         $rootNode
             ->children()
+            ->scalarNode('form_entity')
+                ->defaultValue('Balloon\Bundle\FormBuilderBundle\Entity\Form')
+            ->end()
+            ->scalarNode('field_entity')
+                ->defaultValue('Balloon\Bundle\FormBuilderBundle\Entity\FormField')
+            ->end()
             ->arrayNode('fields')
                 ->useAttributeAsKey('name')
                 ->prototype('array')

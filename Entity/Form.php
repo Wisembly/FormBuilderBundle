@@ -4,7 +4,9 @@ namespace Balloon\Bundle\FormBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Balloon\Bundle\FormBuilderBundle\Model\FormInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 
 /**
  * Balloon\Bundle\FormBuilderBundle\Entity\Form
@@ -35,7 +37,7 @@ class Form implements FormInterface
      *
      * @ORM\OneToMany(targetEntity="FormField", mappedBy="form", cascade={"persist", "remove", "merge"})
      */
-    private $fields;
+    protected $fields;
 
     public function __construct()
     {
@@ -79,7 +81,7 @@ class Form implements FormInterface
         return $this->fields->toArray();
     }
 
-    public function addField(Field $field)
+    public function addField(FormFieldInterface $field)
     {
         $this->fields->add($field);
     }

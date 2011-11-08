@@ -28,7 +28,7 @@ class FormController extends Controller
     public function editAction($id)
     {
         $fields = $this->get('balloon_form_manager')->find($id);
-        var_dump($fields);
+
         $form = $this->get('balloon_form_builder')->buildFields($fields);
 
         return $this->render('BalloonFormBuilderBundle:Form:create.html.twig', array(

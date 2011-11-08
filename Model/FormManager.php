@@ -11,7 +11,7 @@ class FormManager
     private $objectManager;
     private $repository;
 
-    public function __construct(Session $session, ObjectManager $objectManager, $repository = 'BalloonFormBuilder:Form')
+    public function __construct(Session $session, ObjectManager $objectManager, $repository)
     {
         $this->session          = $session;
         $this->objectManager    = $objectManager;
@@ -20,35 +20,55 @@ class FormManager
 
     public function find($id)
     {
-//        if (null !== ($fields = $this->repository->find($id))) {
+        if (null !== ($fields = $this->session->get('forms_'.$id))) {
+            return $fields;
+        }
+
+        if (null !== ($form = $this->repository->find($id))) {
             $fieldsArr = array();
 
-            //foreach ($fields as $field) {
-               // TODO 
-            //}
-
-    //        return $fields;
-  //      }
-
-        if (null !== ($fields = $this->session->get('forms_'.$id))) {
-            foreach ($fields as $k => $field) {
-                $type = $field['type'];
-                unset($field['type']);
-                $options = $field['options'];
-
-                $field = new FormField()
+            foreach ($form->getFields() as $field) {
+                $fieldsArr[] = array('type' => $field->getType()) + $field->getOptions();
             }
-            return $fields;
+
+            $this->session->set('forms_'.$id, $fieldsArr);
+
+            return $fieldsArr;
         }
 
         throw new \ErrorException('should not happen');
     }
 
-    public function addField($formid, array $fields)
+    public function addField($formid, $type, array $data)
     {
         $fields = $this->session->get('forms_'.$formid);
 
-        $fields[] = $fields;
+        $fields[] = array('type' => $type) + $data;
+
+        $this->session->set('forms_'.$formid, $fields);
+    }
+
+    public function getField($formid, $index)
+    {
+        $form = $this->session->get('forms_'.$formid);
+
+        return $form[$index];
+    }
+
+    public function updateField($formid, $index, $type, array $data)
+    {
+        $fields = $this->session->get('forms_'.$formid);
+
+        $fields[$index] = array('type' => $type) + $data;
+
+        $this->session->set('forms_'.$formid, $fields);
+    }
+
+    public function removeField($formid, $index)
+    {
+        $fields = $this->session->get('forms_'.$formid);
+
+        unset($fields[$index]);
 
         $this->session->set('forms_'.$formid, $fields);
     }

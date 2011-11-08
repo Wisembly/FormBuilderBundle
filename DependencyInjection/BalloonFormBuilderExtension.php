@@ -22,7 +22,9 @@ class BalloonFormBuilderExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('balloon_form_config', $config);
+        $container->setParameter('balloon_form_config', $config['fields']);
+        $container->setParameter('balloon_form_entity', $config['form_entity']);
+        $container->setParameter('balloon_field_entity', $config['field_entity']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
