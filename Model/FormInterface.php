@@ -13,4 +13,6 @@ interface FormInterface
      * @return array
      */
     public function getFields();
+
+    //public function addField(FieldInterface $field);
 }

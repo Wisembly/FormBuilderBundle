@@ -10,17 +10,22 @@ interface FormFieldInterface
     public function getType();
 
     /**
-     * @return string
+     * @param string $type
      */
     public function setType($type);
 
     /**
-     * @return string
+     * @param array $options
+     */
+    public function setOptions(array $options);
+
+    /**
+     * @return array
      */
     public function getOptions();
 
     /**
-     * @return string
+     * @param FormInterface $form
      */
-    public function setOptions(array $options);
+    public function setForm(FormInterface $form);
 }

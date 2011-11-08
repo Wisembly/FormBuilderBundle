@@ -1,0 +1,11 @@
+<h1>List of forms</h1>
+
+<a href="{{ path("form_create") }}">create a form</a>
+
+<hr/>
+
+<ul>
+    {% for form in forms %}
+        <li><a href="{{ path("form_edit", {"id": form.id}) }}">{{ form.name }}</a></li>
+    {% endfor %}
+</ul>

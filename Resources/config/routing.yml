@@ -1,11 +1,19 @@
+form_list:
+    pattern:  /form
+    defaults: { _controller: BalloonFormBuilderBundle:Form:list }
 form_create:
     pattern:  /form/create
     defaults: { _controller: BalloonFormBuilderBundle:Form:create }
-
 form_edit:
-    pattern:  /form/edit/{id}
+    pattern:  /form/edit/{formid}
     defaults: { _controller: BalloonFormBuilderBundle:Form:edit }
 
 form_field_create:
-    pattern:  /field/create/{type}/{id}
+    pattern:  /field/create/{type}/{formid}
     defaults: { _controller: BalloonFormBuilderBundle:FormField:create }
+form_field_edit:
+    pattern:  /field/edit/{index}/{formid}
+    defaults: { _controller: BalloonFormBuilderBundle:FormField:edit }
+form_field_delete:
+    pattern:  /field/delete/{index}/{formid}
+    defaults: { _controller: BalloonFormBuilderBundle:FormField:delete }

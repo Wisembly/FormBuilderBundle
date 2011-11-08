@@ -1,5 +1,7 @@
-<ul>
-    <li><a href="{{ path('form_field_create', {"type": "field", "id": id}) }}">text</a></li>
-</ul>
+<h1>Create a form</h1>
 
-{{ form_widget(form) }}
+<h5>Type of fields:</h5>
+<ul>
+    <li><a href="{{ path('form_field_create', {"type": "field", "formid": formid}) }}">text</a></li>
+    <li><a href="{{ path('form_field_create', {"type": "choice", "formid": formid}) }}">choice</a></li>
+</ul>

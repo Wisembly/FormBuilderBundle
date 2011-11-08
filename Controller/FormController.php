@@ -9,31 +9,42 @@ use Balloon\Bundle\FormBuilderBundle\Entity\Field;
 
 class FormController extends Controller
 {
-    public function indexAction($name)
+    public function listAction()
     {
-        return $this->render('BalloonFormBuilderBundle:Form:index.html.twig', array('name' => $name));
+        $forms = $this->get('balloon_form_manager')->findAll();
+
+        return $this->render('BalloonFormBuilderBundle:Form:list.html.twig', array('forms' => $forms));
     }
 
     public function createAction()
     {
-        $id = rand(0, 1000);
-        $form = $this->get('balloon_form_builder')->buildFields(array());
+        $formid = $this->get('balloon_form_storage')->generateId();
 
         return $this->render('BalloonFormBuilderBundle:Form:create.html.twig', array(
-            'id'    => $id,
-            'form'  => $form->createView(),
+            'formid'    => $formid,
         ));
     }
 
-    public function editAction($id)
+    public function editAction($formid)
     {
-        $fields = $this->get('balloon_form_manager')->find($id);
+        $fields = $this->get('balloon_form_tallhat')->find($formid);
 
         $form = $this->get('balloon_form_builder')->buildFields($fields);
 
-        return $this->render('BalloonFormBuilderBundle:Form:create.html.twig', array(
-            'id'    => $id,
-            'form'  => $form->createView(),
+        return $this->render('BalloonFormBuilderBundle:Form:edit.html.twig', array(
+            'formid' => $formid,
+            'form'   => $form->createView(),
         ));
+    }
+
+    public function deleteAction($formid)
+    {
+        $form = $this->get('balloon_form_manager')->find($formid);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->remove($form);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('form_list'));
     }
 }

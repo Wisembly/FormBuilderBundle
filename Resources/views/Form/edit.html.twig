@@ -1,0 +1,36 @@
+<h1>Create a form</h1>
+
+<h5>Type of fields:</h5>
+<ul>
+    <li><a href="{{ path('form_field_create', {"type": "field", "formid": formid}) }}">text</a></li>
+    <li><a href="{{ path('form_field_create', {"type": "choice", "formid": formid}) }}">choice</a></li>
+</ul>
+
+{% form_theme form _self %}
+<form>
+    {{ form_widget(form, {"formid": formid}) }}
+</form>
+
+{% block field_rows %}
+{% spaceless %}
+    {{ form_errors(form) }}
+    {% for child in form %}
+        {{ form_row(child, {"formid": formid}) }}
+{% endfor %}
+{% endspaceless %}
+{% endblock field_rows %}
+
+
+{% block field_row %}
+{% spaceless %}
+    <div class="form-row">
+        {{ form_label(form, label|default(null)) }}
+        {{ form_errors(form) }}
+        {{ form_widget(form) }}
+        <br/><br/>
+        <a href="{{ path('form_field_edit', {"formid": formid, "index": form.get('name')}) }}">{{ "edit" | trans }}</a>
+            |
+        <a href="{{ path('form_field_delete', {"formid": formid, "index": form.get('name')}) }}">{{ "delete" | trans }}</a>
+    </div>
+{% endspaceless %}
+{% endblock field_row %}

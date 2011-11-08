@@ -1,10 +1,10 @@
 <?php
 
-namespace Balloon\Bundle\FormBuilderBundle\Model;
+namespace Balloon\Bundle\FormBuilderBundle\Form;
 
 use Symfony\Component\Form\FormFactory;
 
-class FormBuilder
+class Builder
 {
     private $formFactory;
 
