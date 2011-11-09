@@ -83,6 +83,8 @@ class Form implements FormInterface
 
     public function addField(FormFieldInterface $field)
     {
+        $field->setForm($this);
+
         $this->fields->add($field);
     }
 }

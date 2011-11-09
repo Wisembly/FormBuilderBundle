@@ -28,14 +28,13 @@ class Factory
         return $field;
     }
 
-    public function formInstance()
+    public function formInstance(array $fields)
     {
         $form = new $this->formClass;
-        $fields = $form->getFields();
 
         foreach ($fields as $fieldArr) {
-            $field = new $this->fieldInstance($fieldAtt);
-            $field->setForm($form);
+            $field = $this->fieldInstance($fieldArr);
+            $form->addField($field);
         }
 
         return $form;

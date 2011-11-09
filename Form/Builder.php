@@ -3,6 +3,7 @@
 namespace Balloon\Bundle\FormBuilderBundle\Form;
 
 use Symfony\Component\Form\FormFactory;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 
 class Builder
 {
@@ -22,7 +23,7 @@ class Builder
 
         foreach ($fields as $i => $field) {
             if ($field instanceof FormFieldInterface) {
-                $builder->add($field->getId(), $field->getType(), $field->getOptions());
+                $builder->add((string)$field->getId(), $field->getType(), $field->getOptions());
             } else {
                 $type = $field['type'];
                 unset($field['type']);

@@ -22,7 +22,7 @@ class Manager
 
     public function find($id)
     {
-        return $this->repository->find();
+        return $this->repository->find($id);
     }
 
     public function findAll()
