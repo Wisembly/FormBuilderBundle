@@ -14,5 +14,7 @@ interface FormInterface
      */
     public function getFields();
 
+    public function resetFields();
+
     //public function addField(FieldInterface $field);
 }

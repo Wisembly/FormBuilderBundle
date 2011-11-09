@@ -29,10 +29,11 @@ class Answerer
 
         foreach ($data as $key => $value) {
             $fieldAnswer = new $this->fieldAnswerClass;
-            $fieldAnswer->setField($fields->get($index));
+
+            $fields->get($index)->addAnswer($fieldAnswer);
             $fieldAnswer->setValue($value);
 
-            $answer->addField($fields->get($index), $fieldAnswer);
+            $answer->addField($fieldAnswer);
 
             $index++;
         }

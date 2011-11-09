@@ -25,6 +25,11 @@ class Storage
         return $this->_get($formid);
     }
 
+    public function removeAll($formid)
+    {
+        $this->_remove($formid);
+    }
+
     public function init($formid, array $fields)
     {
         $this->_set($formid, $fields);
@@ -72,5 +77,10 @@ class Storage
     protected function _set($formid, array $fields)
     {
         return $this->session->set('forms_'.$formid, $fields);
+    }
+
+    protected function _remove($formid)
+    {
+        return $this->session->remove('forms_'.$formid);
     }
 }

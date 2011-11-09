@@ -76,6 +76,11 @@ class Form implements FormInterface
         return $this->name;
     }
 
+    public function resetFields()
+    {
+        $this->fields->clear();
+    }
+
     public function getFields()
     {
         return $this->fields->toArray();
