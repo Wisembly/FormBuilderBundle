@@ -40,18 +40,16 @@ class Builder
         }
 
         $type = $this->formFactory->getType($name);
-
-        $defaultOptions = array();
-        $configOptions = $this->fieldConfig[$name];
-        $fieldOptions = $type->getDefaultOptions(array());
+        $defaultOptions = $type->getDefaultOptions(array());
+        $configOptions = isset($this->fieldConfig[$name]) ? $this->fieldConfig[$name] : $defaultOptions;
 
         foreach ($configOptions as $option) {
             // default value
             $val = null;
 
             // if option exists set the default value
-            if (isset($fieldOptions[$option])) {
-                $val = $fieldOptions[$option];
+            if (isset($defaultOptions[$option])) {
+                $val = $defaultOptions[$option];
             }
 
             // if value is an array create some fields
