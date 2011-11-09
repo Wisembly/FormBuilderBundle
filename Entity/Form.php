@@ -83,7 +83,7 @@ class Form implements FormInterface
 
     public function getFields()
     {
-        return $this->fields->toArray();
+        return $this->fields;
     }
 
     public function addField(FormFieldInterface $field)

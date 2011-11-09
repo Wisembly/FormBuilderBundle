@@ -16,33 +16,13 @@ class Factory
         $this->fieldClass = $fieldClass;
     }
 
-    public function fieldInstance(array $encoded)
+    public function formInstance()
     {
-        $type = $encoded['type'];
-        unset($encoded['type']);
-
-        $field = new $this->fieldClass;
-        $field->setType($type);
-        $field->setOptions($encoded);
-
-        return $field;
+        return new $this->formClass;
     }
 
-    public function formInstance(array $fields, FormInterface $form = null)
+    public function fieldInstance()
     {
-        $form = null === $form ? new $this->formClass : $form;
-
-        // fix http://www.doctrine-project.org/jira/browse/DDC-956
-        // we call ->count() to initialize the collection
-        $form->getFields()->count();
-
-        $form->resetFields();
-
-        foreach ($fields as $fieldArr) {
-            $field = $this->fieldInstance($fieldArr);
-            $form->addField($field);
-        }
-
-        return $form;
+        return new $this->fieldClass;
     }
 }

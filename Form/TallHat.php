@@ -15,7 +15,15 @@ class TallHat
         $this->encoder = $encoder;
     }
 
-    public function find($formid)
+    /**
+     * Search in the session if we have a form corresponding
+     *
+     * If not fetch it in the db and return an array fields
+     *
+     * @param integer $formid
+     * @return array An array of fields
+     */
+    public function findFields($formid)
     {
         if (null !== ($fields = $this->storage->all($formid))) {
             return $fields;
@@ -28,6 +36,6 @@ class TallHat
             return $fields;
         }
 
-        throw new \ErrorException('should not happen');
+        throw new \ErrorException("should not happen, formid : $formid");
     }
 }

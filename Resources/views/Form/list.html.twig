@@ -6,6 +6,11 @@
 
 <ul>
     {% for form in forms %}
-        <li><a href="{{ path("form_edit", {"id": form.id}) }}">{{ form.name }}</a></li>
+        <li>
+            <a href="{{ path("form_edit", {"formid": form.id}) }}">{{ form.name }}</a>
+            <a href="{{ path("form_delete", {"formid": form.id}) }}">delete</a>
+        </li>
+    {% else %}
+        <li>no form yet..</li>
     {% endfor %}
 </ul>

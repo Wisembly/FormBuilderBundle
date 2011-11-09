@@ -3,6 +3,9 @@
 namespace Balloon\Bundle\FormBuilderBundle\Form;
 
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\Extension\Core\Type\FieldType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 
 class Builder
@@ -68,18 +71,20 @@ class Builder
         foreach ($data as $key => $val) {
             switch(gettype($val)) {
                 case 'boolean':
-                    $builder->add($key, new \Symfony\Component\Form\Extension\Core\Type\CheckboxType());
+                    $builder->add($key, new CheckboxType(), array(
+                        'required' => false,
+                    ));
                     break;
                 case 'NULL':
                 case 'integer':
                 case 'double':
                 case 'string':
-                    $builder->add($key, new \Symfony\Component\Form\Extension\Core\Type\FieldType(), array(
+                    $builder->add($key, new FieldType(), array(
                         'required' => false,
                     ));
                     break;
                 case 'array':
-                    $builder->add($key, new \Symfony\Component\Form\Extension\Core\Type\CollectionType(), array(
+                    $builder->add($key, new CollectionType(), array(
                         'allow_add'     => true,
                         'allow_delete'  => true,
                     ));

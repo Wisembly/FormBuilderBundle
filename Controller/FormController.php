@@ -27,13 +27,32 @@ class FormController extends Controller
 
     public function editAction($formid)
     {
-        $fields = $this->get('balloon_form_tallhat')->find($formid);
+        $form = $this->get('balloon_form_manager')->find($formid);
 
-        $form = $this->get('balloon_form_builder')->buildFields($fields);
+        if (null === $form) {
+            $form = $this->get('balloon_form_factory')->formInstance();
+        }
+
+        $formForm = $this->createFormBuilder($form)->add('name')->getForm();
+        $fields = $this->get('balloon_form_tallhat')->findFields($formid);
+        $fieldsForm = $this->get('balloon_form_builder')->buildFields($fields);
+
+        if ('POST' === $this->getRequest()->getMethod()) {
+            $formForm->bindRequest($this->getRequest());
+
+            if ($formForm->isValid()) {
+                $this->get('balloon_form_decoder')->decode($form, $fields);
+                $this->getDoctrine()->getEntityManager()->persist($form);
+                $this->getDoctrine()->getEntityManager()->flush();
+
+                return $this->redirect($this->generateUrl('form_list'));
+            }
+        }
 
         return $this->render('BalloonFormBuilderBundle:Form:edit.html.twig', array(
             'formid' => $formid,
-            'form'   => $form->createView(),
+            'fields' => $fieldsForm->createView(),
+            'form'   => $formForm->createView(),
         ));
     }
 
