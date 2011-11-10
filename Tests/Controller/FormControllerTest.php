@@ -58,8 +58,8 @@ class DefaultControllerTest extends WebTestCase
         };
 
         return array(
-            array($sessionPre, $sessionFormid),
-            array($dbPre, $dbFormid),
+            array($sessionPre, $sessionFormid, 'session'),
+            array($dbPre, $dbFormid, 'db'),
         );
     }
 
@@ -92,7 +92,7 @@ class DefaultControllerTest extends WebTestCase
     }
 
     /** @dataProvider formsProvider */
-    public function testSaveForm($preFunction, $formid)
+    public function testSaveForm($preFunction, $formid, $type)
     {
         $client = static::createClient();
         $preFunction($client);
@@ -104,12 +104,11 @@ class DefaultControllerTest extends WebTestCase
         $session = $client->getContainer()->get('session')->get('forms_'.$formid);
         $crawler = $client->submit($form, array('form[name]' => 'A form'));
 
-        // fix session cleared by $client->submit()
-        // TODO fixme - session get cleared
+        if ($type == 'session') {
+            // TODO fixme  - client session cleared by $client->submit()
+            $this->markTestIncomplete('session get cleared, wtf??');
+        }
 
-        $this->markTestIncomplete('session get cleared, wtf??');
-
-        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertTrue($client->getResponse()->isRedirect());
         $crawler = $client->followRedirect();
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
