@@ -11,32 +11,38 @@ use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 class Builder
 {
     private $formFactory;
-
+    private $decoder;
+    private $tallhat;
     private $fieldConfig;
 
-    public function __construct(FormFactory $formFactory, $fieldConfig)
+    public function __construct(FormFactory $formFactory, Decoder $decoder, TallHat $tallhat, $fieldConfig)
     {
         $this->formFactory = $formFactory;
+        $this->decoder = $decoder;
+        $this->tallhat = $tallhat;
         $this->fieldConfig = $fieldConfig;
     }
 
-    public function buildFields(array $fields)
+    public function build($formid, $bindData = false)
     {
-        $builder = $this->formFactory->createBuilder('form');
+        return $this->buildFields($this->tallhat->findFields($formid), $bindData);
+    }
+
+    public function buildFields(array $fields, $bindData = false)
+    {
+        $builder = $this->formFactory->createBuilder('form', $bindData ? $fields : null);
 
         foreach ($fields as $i => $field) {
-            if ($field instanceof FormFieldInterface) {
+                $field = $this->decoder->decodeField($field);
                 $builder->add((string)$field->getId(), $field->getType(), $field->getOptions());
-            } else {
-                $type = $field['type'];
-                unset($field['type']);
-                $builder->add((string)$i, $type, $field);
-            }
         }
 
         return $builder->getForm();
     }
 
+    /**
+     * Lot's of magic here - keep in mind that a form types are the skeleton
+     */
     public function buildType($name, array $data = array())
     {
         if (!$this->formFactory->hasType($name)) {

@@ -7,7 +7,9 @@
 <ul>
     {% for form in forms %}
         <li>
-            <a href="{{ path("form_edit", {"formid": form.id}) }}">{{ form.name }}</a>
+            <em>{{ form.name }}</em>
+            <a href="{{ path("form_edit", {"formid": form.id}) }}">edit</a>
+            <a href="{{ path("form_answer", {"formid": form.id}) }}">answer</a>
             <a href="{{ path("form_delete", {"formid": form.id}) }}">delete</a>
         </li>
     {% else %}

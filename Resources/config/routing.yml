@@ -7,6 +7,9 @@ form_create:
 form_edit:
     pattern:  /form/edit/{formid}
     defaults: { _controller: BalloonFormBuilderBundle:Form:edit }
+form_answer:
+    pattern:  /form/answer/{formid}
+    defaults: { _controller: BalloonFormBuilderBundle:Form:answer }
 form_delete:
     pattern:  /form/delete/{formid}
     defaults: { _controller: BalloonFormBuilderBundle:Form:delete }

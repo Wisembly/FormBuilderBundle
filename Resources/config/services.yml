@@ -15,7 +15,7 @@ services:
 
     balloon_form_builder:
         class: %balloon_form_builder.class%
-        arguments: [@form.factory, %balloon_form_config%]
+        arguments: [@form.factory, @balloon_form_decoder, @balloon_form_tallhat, %balloon_form_config%]
 
     balloon_form_decoder:
         class: %balloon_form_decoder.class%
