@@ -1,18 +1,19 @@
-<h1>List of forms</h1>
+{% extends "BalloonFormBuilderBundle::layout.html.twig" %}
 
-<a href="{{ path("form_create") }}">create a form</a>
+{% block content %}
+    <h2>List of forms</h2>
+    <hr/>
+    <a class="btn" href="{{ path("form_create") }}">create a form</a>
+    <hr/>
 
-<hr/>
-
-<ul>
     {% for form in forms %}
-        <li>
+        <div class="form-list well">
             <em>{{ form.name }}</em>
-            <a href="{{ path("form_edit", {"formid": form.id}) }}">edit</a>
-            <a href="{{ path("form_answer", {"formid": form.id}) }}">answer</a>
-            <a href="{{ path("form_delete", {"formid": form.id}) }}">delete</a>
-        </li>
+            <a class="btn small info" href="{{ path("form_edit", {"formid": form.id}) }}">edit</a>
+            <a class="btn small success" href="{{ path("form_answer", {"formid": form.id}) }}">answer</a>
+            <a class="btn small danger" href="{{ path("form_delete", {"formid": form.id}) }}">delete</a>
+        </div>
     {% else %}
-        <li>no form yet..</li>
+            <em>no form yet..</em>
     {% endfor %}
-</ul>
+{% endblock %}

@@ -1,0 +1,8 @@
+parameters:
+    balloon_form_twig_extension.class: Balloon\Bundle\FormBuilderBundle\Twig\FormExtension
+
+services:
+    balloon_form_twig_extension:
+        class: %balloon_form_twig_extension.class%
+        arguments: [%balloon_form_config%]
+        tags: [{ name: 'twig.extension' }]

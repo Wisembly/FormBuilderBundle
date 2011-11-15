@@ -1,21 +1,29 @@
-<h1>Answer to the form</h1>
+{% extends "BalloonFormBuilderBundle::layout.html.twig" %}
 
-<form method="POST">
-    {{ form_widget(fields) }}
-    <input type="submit" value="answer it!" />
-</form>
+{% block content %}
+    <form method="POST" class="form-stacked well">
+        <fieldset>
+            <legend>{{ form.name | title }}</legend>
+            {{ form_widget(fields) }}
+        </fieldset>
+        <input class="btn primary" type="submit" value="answer it!" />
+    </form>
 
-<table>
-    <thead>
-        {% for i,field in form.fields %}
-            <th>{{ field.options.label }}</th>
-        {% endfor %}
-    </thead>
-    <tbody>
-        {% for i,answer in answers %}
-            {% for i,field in answer.fieldAnswers %}
-                <td>{{ field.value }}<td>
+    {% if answers|length > 0 %}
+    <table class="zebra-striped bordered-table">
+        <thead>
+            {% for i,field in form.fields %}
+                <th>{{ field.options.label }}</th>
             {% endfor %}
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for i,answer in answers %}
+                {% for i,field in answer.fieldAnswers %}
+                    <td>{{ field.value }}<td>
+                {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+{% endblock %}

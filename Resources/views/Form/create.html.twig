@@ -1,7 +1,11 @@
-<h1>Create a form</h1>
+{% extends "BalloonFormBuilderBundle::layout.html.twig" %}
 
-<h5>Type of fields:</h5>
-<ul>
-    <li><a href="{{ path('form_field_create', {"type": "field", "formid": formid}) }}">text</a></li>
-    <li><a href="{{ path('form_field_create', {"type": "choice", "formid": formid}) }}">choice</a></li>
-</ul>
+{% block content %}
+    <h2>Create a form</h2>
+    <hr/>
+    <p>Your form has no field for the moment.</p>
+    <p>Start by choosing a field to add:</p>
+    {% for type in form_types() %}
+        <a class="btn" href="{{ path('form_field_create', {"type": type, "formid": formid}) }}">{{ type }}</a>
+    {% endfor %}
+{% endblock %}

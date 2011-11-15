@@ -29,6 +29,7 @@ class BalloonFormBuilderExtension extends Extension
         $container->setParameter('balloon_field_answer_entity', $config['field_answer_entity']);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
+        $loader->load('form.yml');
+        $loader->load('twig.yml');
     }
 }

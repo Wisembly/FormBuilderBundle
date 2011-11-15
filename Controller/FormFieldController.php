@@ -23,7 +23,10 @@ class FormFieldController extends Controller
             }
         }
 
-        return $this->render('BalloonFormBuilderBundle:FormField:create.html.twig', array('form' => $form->createView()));
+        return $this->render('BalloonFormBuilderBundle:FormField:create.html.twig', array(
+            'type' => $type,
+            'form' => $form->createView()
+        ));
     }
 
     public function editAction(Request $request, $index, $formid)

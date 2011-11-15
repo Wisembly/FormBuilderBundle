@@ -1,4 +1,11 @@
-<form method="POST">
-    {{ form_widget(form) }}
-    <input type="submit" value="save" />
-</form>
+{% extends "BalloonFormBuilderBundle::layout.html.twig" %}
+
+{% block content %}
+    <form method="POST" class="form-stacked">
+        <fieldset>
+            <legend>{{ type }}</legend>
+            {{ form_widget(form) }}
+        </fieldset>
+        <input type="submit" value="save" class="btn primary" />
+    </form>
+{% endblock %}
