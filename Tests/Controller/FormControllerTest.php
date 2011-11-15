@@ -56,7 +56,7 @@ class FormControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/form/create');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
-        $crawler = $client->click($crawler->selectLink('text')->link());
+        $crawler = $client->click($crawler->selectLink('field')->link());
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $form = $crawler->selectButton('save')->form(array('form[label]' => 'field label'));
