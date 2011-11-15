@@ -4,3 +4,18 @@
     {{ form_widget(fields) }}
     <input type="submit" value="answer it!" />
 </form>
+
+<table>
+    <thead>
+        {% for i,field in form.fields %}
+            <th>{{ field.options.label }}</th>
+        {% endfor %}
+    </thead>
+    <tbody>
+        {% for i,answer in answers %}
+            {% for i,field in answer.fieldAnswers %}
+                <td>{{ field.value }}<td>
+            {% endfor %}
+        {% endfor %}
+    </tbody>
+</table>

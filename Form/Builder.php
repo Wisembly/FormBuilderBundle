@@ -30,11 +30,15 @@ class Builder
 
     public function buildFields(array $fields, $bindData = false)
     {
-        $builder = $this->formFactory->createBuilder('form', $bindData ? $fields : null);
+        $builder = $this->formFactory->createBuilder('form', $bindData ? $fields : array());
 
         foreach ($fields as $i => $field) {
-                $field = $this->decoder->decodeField($field);
+            if ($field instanceof Field) {
                 $builder->add((string)$field->getId(), $field->getType(), $field->getOptions());
+            } else {
+                $field = $this->decoder->decodeField($field);
+                $builder->add((string)$i, $field->getType(), $field->getOptions());
+            }
         }
 
         return $builder->getForm();

@@ -44,6 +44,10 @@ class FormField implements FormFieldInterface
      */
     private $form;
 
+    /**
+     * @ORM\OneToOne(targetEntity="FormFieldAnswer", mappedBy="field")
+     */
+    private $fieldAnswer;
 
     /**
      * Get id
@@ -119,5 +123,12 @@ class FormField implements FormFieldInterface
     public function getForm()
     {
         return $this->form;
+    }
+
+    public function addFieldAnswer($fieldAnswer)
+    {
+        $fieldAnswer->setField($this);
+
+        $this->fieldAnswer = $fieldAnswer;
     }
 }

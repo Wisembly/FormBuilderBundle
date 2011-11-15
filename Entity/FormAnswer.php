@@ -4,6 +4,7 @@ namespace Balloon\Bundle\FormBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Balloon\Bundle\FormBuilderBundle\Model\FormInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormAnswerInterface;
 
 /**
@@ -33,7 +34,7 @@ class FormAnswer implements FormAnswerInterface
     /**
      * @var ArrayCollection $fieldAnswers
      *
-     * @ORM\OneToMany(targetEntity="FormItemAnswer", mappedBy="answer", cascade={"persist", "remove", "merge"})
+     * @ORM\OneToMany(targetEntity="FormFieldAnswer", mappedBy="answer", cascade={"persist", "remove", "merge"})
      */
     private $fieldAnswers;
 
@@ -71,7 +72,7 @@ class FormAnswer implements FormAnswerInterface
         return $this->form;
     }
 
-    public function setForm(Form $form)
+    public function setForm(FormInterface $form)
     {
         $this->form = $form;
     }
@@ -81,11 +82,10 @@ class FormAnswer implements FormAnswerInterface
         return $this->fieldAnswers;
     }
 
-    public function addFieldAnswer(FormItem $field, FormItemAnswer $itemAnswer)
+    public function addField($field)
     {
-        $itemAnswer->setField($field);
-        $itemAnswer->setAnswer($this);
+        $field->setAnswer($this);
 
-        $this->fieldAnswers->add($itemAnswer);
+        $this->fieldAnswers->add($field);
     }
 }

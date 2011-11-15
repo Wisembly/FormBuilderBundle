@@ -2,10 +2,10 @@
 
 namespace Balloon\Bundle\FormBuilderBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use Balloon\Bundle\FormBuilderBundle\Entity\Form;
 use Balloon\Bundle\FormBuilderBundle\Entity\Field;
+use Balloon\Bundle\FormBuilderBundle\Entity\Form;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class FormController extends Controller
 {
@@ -35,13 +35,14 @@ class FormController extends Controller
 
         $formForm = $this->createFormBuilder($form)->add('name')->getForm();
 
-        $fieldsForm = $this->get('balloon_form_builder')->build($formid, true);
+        $fields = $this->get('balloon_form_tallhat')->findFields($formid);
+        $fieldsForm = $this->get('balloon_form_builder')->buildFields($fields, false);
 
         if ('POST' === $this->getRequest()->getMethod()) {
             $formForm->bindRequest($this->getRequest());
 
             if ($formForm->isValid()) {
-                $this->get('balloon_form_decoder')->decode($form, $fieldsForm->getData());
+                $this->get('balloon_form_decoder')->decode($form, $fields);
                 $this->getDoctrine()->getEntityManager()->persist($form);
                 $this->getDoctrine()->getEntityManager()->flush();
 
@@ -67,18 +68,18 @@ class FormController extends Controller
         return $this->redirect($this->generateUrl('form_list'));
     }
 
-    public function answerAction($formid)
+    public function answerAction(Request $request, $formid)
     {
         $form = $this->get('balloon_form_manager')->find($formid);
-
         $fields = $this->get('balloon_form_builder')->build($formid);
+        $answers = $this->get('balloon_form_respond')->findAll($formid);
 
-        if ('POST' === $this->getRequest()->getMethod()) {
-            $formForm->bindRequest($this->getRequest());
+        if ('POST' === $request->getMethod()) {
+            $fields->bindRequest($request);
 
-            if ($formForm->isValid()) {
-                $this->get('balloon_form_decoder')->decode($form, $fields->getData());
-                $this->getDoctrine()->getEntityManager()->persist($form);
+            if ($fields->isValid()) {
+                $answer = $this->get('balloon_form_respond')->answer($form, $fields->getData());
+                $this->getDoctrine()->getEntityManager()->persist($answer);
                 $this->getDoctrine()->getEntityManager()->flush();
 
                 return $this->redirect($this->generateUrl('form_list'));
@@ -86,7 +87,9 @@ class FormController extends Controller
         }
 
         return $this->render('BalloonFormBuilderBundle:Form:answer.html.twig', array(
-            'fields' => $fields->createView(),
+            'form'    => $form,
+            'answers' => $answers,
+            'fields'  => $fields->createView(),
         ));
     }
 }

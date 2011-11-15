@@ -29,13 +29,13 @@ class FormFieldController extends Controller
     public function editAction(Request $request, $index, $formid)
     {
         $fieldArr = $this->get('balloon_form_storage')->get($formid, $index);
-        $field = $this->get('balloon_form_factory')->fieldInstance($fieldArr);
+        $field = $this->get('balloon_form_decoder')->decodeField($fieldArr);
         $form = $this->get('balloon_form_builder')->buildType($field->getType(), $field->getOptions());
 
         if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
             if ($form->isValid()) {
-                $this->get('balloon_form_storage')->add($formid, $field->getType(), $form->getData());
+                $this->get('balloon_form_storage')->set($formid, $index, $field->getType(), $form->getData());
 
                 return $this->redirect($this->generateUrl('form_edit', array('formid' => $formid)));
             }

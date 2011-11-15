@@ -1,6 +1,6 @@
 <?php
 
-namespace Balloon\FormBundle\Entity;
+namespace Balloon\Bundle\FormBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -22,16 +22,21 @@ class FormFieldAnswer
     private $id;
 
     /**
+     * @ORM\Column(name="value", type="string")
+     */
+    private $value;
+
+    /**
      * @var FormItem $field
      *
-     * @ORM\ManyToOne(targetEntity="FormItem", inversedBy="form")
+     * @ORM\OneToOne(targetEntity="FormField", inversedBy="form")
      */
     private $field;
 
     /**
      * @var FormItem $field
      *
-     * @ORM\ManyToOne(targetEntity="FormAnswer", inversedBy="fields")
+     * @ORM\ManyToOne(targetEntity="FormAnswer", inversedBy="fieldAnswers")
      */
     private $answer;
 
@@ -50,8 +55,28 @@ class FormFieldAnswer
         return $this->field;
     }
 
-    public function setField(FormItem $field)
+    public function setField(FormField $field)
     {
         $this->field = $field;
+    }
+
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    public function getValue()
+    {
+        return $this->value;
+    }
+
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
+    }
+
+    public function getAnswer()
+    {
+        return $this->answer;
     }
 }

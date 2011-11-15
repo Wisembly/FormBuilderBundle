@@ -31,6 +31,7 @@ class TallHat
 
         if (null !== ($form = $this->manager->find($formid))) {
             $fields = $this->encoder->encode($form);
+            // TODO remove me
             $this->storage->init($formid, $fields);
 
             return $fields;
