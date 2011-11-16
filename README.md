@@ -55,6 +55,18 @@ $ ./app/console assets:install web --symlink
 
 Your done now go to `/app_dev.php/form`
 
+## Screenshots
+
+![list form](https://github.com/Balloon/FormBuilderBundle/raw/master/Resources/doc/list.png)
+<p>List forms</p>
+
+
+![edit form](https://github.com/Balloon/FormBuilderBundle/raw/master/Resources/doc/edit.png)
+<p>Edit a form</p>
+
+![answer form](https://github.com/Balloon/FormBuilderBundle/raw/master/Resources/doc/answer.png)
+<p>Answer to a form</p>
+
 ## Contributors
 
 [gordonslondon](http://github.com/gordonslondon)
