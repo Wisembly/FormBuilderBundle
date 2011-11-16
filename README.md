@@ -69,4 +69,4 @@ Your done now go to `/app_dev.php/form`
 
 ## Contributors
 
-[gordonslondon](http://github.com/gordonslondon)
+creator [gordonslondon](http://github.com/gordonslondon)
