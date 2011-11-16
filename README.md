@@ -17,6 +17,18 @@ Register the bundle in `AppKernel.php`:
     }
 ```
 
+Register the namespace in your `app/autoload.php`:
+
+```php
+<?php
+
+$loader->registerNamespaces(array(
+    // ...
+    'Balloon\\Bundle\\FormBuilderBundle' => __DIR__.'/../vendor/bundles',
+    // ...
+));
+```
+
 Add this section to your `app/config/config.yml` file:
 
 ```yaml
