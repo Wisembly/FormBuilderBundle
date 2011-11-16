@@ -22,7 +22,7 @@ class FormFieldAnswer
     private $id;
 
     /**
-     * @ORM\Column(name="value", type="string")
+     * @ORM\Column(name="value", type="array")
      */
     private $value;
 
@@ -68,6 +68,46 @@ class FormFieldAnswer
     public function getValue()
     {
         return $this->value;
+    }
+
+    public function getScalarValue()
+    {
+        switch (gettype($this->value)) {
+            case 'object':
+                if ($this->value instanceof \DateTime) {
+                    $dateFormatter = \IntlDateFormatter::create(
+                        \Locale::getDefault(),
+                        \IntlDateFormatter::SHORT,
+                        \IntlDateFormatter::SHORT,
+                        date_default_timezone_get(),
+                        \IntlDateFormatter::GREGORIAN
+                    );
+
+                    return $dateFormatter->format($this->value);
+                }
+
+                return $this->value;
+            case 'array':
+                $choices = array();
+
+                foreach ($this->field->getOption('choices') as $k => $v) {
+                    if (false !== array_search($k, $this->value)) {
+                        $choices[] = $v;
+                    }
+                }
+
+                return implode(', ', $choices);
+            case 'boolean':
+                return $this->value ? '~' : '';
+            default:
+                if ($this->field->getType() == 'choice') {
+                    $choices = $this->field->getOption('choices');
+
+                    return $choices[$this->value];
+                }
+
+                return $this->value;
+        }
     }
 
     public function setAnswer($answer)

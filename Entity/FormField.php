@@ -122,6 +122,11 @@ class FormField implements FormFieldInterface
         return $this->options;
     }
 
+    public function getOption($option)
+    {
+        return $this->options[$option];
+    }
+
     /**
      * Set form
      *

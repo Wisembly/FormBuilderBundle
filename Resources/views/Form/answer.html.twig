@@ -21,7 +21,7 @@
                 {% for i,answer in answers %}
                     <tr>
                     {% for i,field in answer.fieldAnswers %}
-                        <td>{{ field.value }}</td>
+                        <td>{{ field.scalarValue }}</td>
                     {% endfor %}
                     </tr>
                 {% endfor %}

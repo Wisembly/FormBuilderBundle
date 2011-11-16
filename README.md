@@ -39,14 +39,10 @@ balloon_form_builder:
             label:      ~
         datetime:
             label:      ~
-            date_widget: {single_text:single_text, text:text, choice:choice}
-            time_widget: {single_text:single_text, text:text, choice:choice}
         date:
             label:      ~
-            date_widget: {single_text:single_text, text:text, choice:choice}
         time:
             label:      ~
-            time_widget: {single_text:single_text, text:text, choice:choice}
         checkbox:
             label:      ~
 ```
