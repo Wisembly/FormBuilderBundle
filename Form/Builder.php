@@ -2,11 +2,12 @@
 
 namespace Balloon\Bundle\FormBuilderBundle\Form;
 
-use Symfony\Component\Form\FormFactory;
-use Symfony\Component\Form\Extension\Core\Type\FieldType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FieldType;
+use Symfony\Component\Form\FormFactory;
 
 class Builder
 {
@@ -57,18 +58,16 @@ class Builder
         $defaultOptions = $type->getDefaultOptions(array());
         $configOptions = isset($this->fieldConfig[$name]) ? $this->fieldConfig[$name] : $defaultOptions;
 
-        foreach ($configOptions as $option) {
-            // default value
-            $val = null;
+        foreach ($configOptions as $option => $val) {
 
-            // if option exists set the default value
-            if (isset($defaultOptions[$option])) {
-                $val = $defaultOptions[$option];
-            }
-
-            // if value is an array create some fields
-            if (is_array($val) && empty($val)) {
-                $val = range(0, 4);
+            if (is_array($val)) {
+                // if value is an array create some fields
+                if (empty($val)) {
+                    $val = array_fill(0, 4, '');
+                }
+                else {
+                    $val = reset($val);
+                }
             }
 
             if (!isset($data[$option])) {
@@ -76,9 +75,14 @@ class Builder
             }
         }
 
+        if (isset($data['choices']) && false === array_search('', $data['choices'])) {
+            $data['choices'] += array_fill(count($data['choices']), count($data['choices']) + 2, '');
+        }
+
         $builder = $this->formFactory->createBuilder('form', $data);
 
         foreach ($data as $key => $val) {
+            $val = $configOptions[$key];
             switch(gettype($val)) {
                 case 'boolean':
                     $builder->add($key, new CheckboxType(), array(
@@ -94,10 +98,17 @@ class Builder
                     ));
                     break;
                 case 'array':
-                    $builder->add($key, new CollectionType(), array(
-                        'allow_add'     => true,
-                        'allow_delete'  => true,
-                    ));
+                    if (empty($val)) {
+                        $builder->add($key, new CollectionType(), array(
+                            'required'      => false,
+                            'allow_add'     => true,
+                            'allow_delete'  => true,
+                        ));
+                    } else {
+                        $builder->add($key, new ChoiceType(), array(
+                            'choices' => $configOptions[$key],
+                        ));
+                    }
                     break;
                 default:
                     throw new \InvalidArgumentException('unsupported type '. gettype($val));

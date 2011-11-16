@@ -40,7 +40,9 @@ class Configuration implements ConfigurationInterface
             ->arrayNode('fields')
                 ->useAttributeAsKey('name')
                 ->prototype('array')
-                    ->prototype('scalar')->end()
+                    ->useAttributeAsKey('name')
+                        ->prototype('variable')
+                    ->end()
                 ->end()
             ->end()
         ;

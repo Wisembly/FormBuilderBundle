@@ -95,7 +95,20 @@ class FormField implements FormFieldInterface
      */
     public function setOptions(array $options)
     {
+        if (isset($options['choices'])) {
+            $choices = $options['choices'];
+            unset($options['choices']);
+
+            foreach ($choices as $key => $val) {
+                if (!empty($val)) {
+                    $options['choices'][$key] = $val;
+                }
+            }
+
+        }
+
         $this->options = $options;
+
         return $this;
     }
 

@@ -23,14 +23,32 @@ Add this section to your `app/config/config.yml` file:
 balloon_form_builder:
     fields:
         field:
-            - label
-            - required
-            - max_length
+            label:      ~
+            required:   false
+            max_length: ~
         choice:
-            - label
-            - multiple
-            - expanded
-            - choices
+            label:      ~
+            multiple:   false
+            expanded:   false
+            choices:    {}
+        country:
+            label:      ~
+        language:
+            label:      ~
+        timezone:
+            label:      ~
+        datetime:
+            label:      ~
+            date_widget: {single_text:single_text, text:text, choice:choice}
+            time_widget: {single_text:single_text, text:text, choice:choice}
+        date:
+            label:      ~
+            date_widget: {single_text:single_text, text:text, choice:choice}
+        time:
+            label:      ~
+            time_widget: {single_text:single_text, text:text, choice:choice}
+        checkbox:
+            label:      ~
 ```
 
 Init assets:
