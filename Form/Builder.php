@@ -33,7 +33,7 @@ class Builder
         $builder = $this->formFactory->createBuilder('form', $bindData ? $fields : array());
 
         foreach ($fields as $i => $field) {
-            if ($field instanceof Field) {
+            if ($field instanceof FormFieldInterface) {
                 $builder->add((string)$field->getId(), $field->getType(), $field->getOptions());
             } else {
                 $field = $this->decoder->decodeField($field);
