@@ -25,6 +25,12 @@ class FormControllerTest extends WebTestCase
     public static function tearDownAfterClass()
     {
         static::createClient()->getContainer()->get('database_connection')
+            ->exec("DELETE FROM FormFieldAnswer");
+
+        static::createClient()->getContainer()->get('database_connection')
+            ->exec("DELETE FROM FormAnswer");
+
+        static::createClient()->getContainer()->get('database_connection')
             ->exec("DELETE FROM FormField");
 
         static::createClient()->getContainer()->get('database_connection')

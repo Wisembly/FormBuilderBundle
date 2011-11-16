@@ -29,7 +29,7 @@ class FormFieldAnswer
     /**
      * @var FormItem $field
      *
-     * @ORM\OneToOne(targetEntity="FormField", inversedBy="form")
+     * @ORM\ManyToOne(targetEntity="FormField", inversedBy="form")
      */
     private $field;
 

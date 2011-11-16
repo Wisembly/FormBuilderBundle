@@ -1,3 +1,5 @@
+Let your users create dynamic forms themselve with the form builder bundle
+
 ## Installation
 
 Register the bundle in `AppKernel.php`:
@@ -9,7 +11,7 @@ Register the bundle in `AppKernel.php`:
     {
         return array(
             // ..
-            new Balloon\Bundle\FormBuilderBundle\BalloonFormBuilderBundle(),`
+            new Balloon\Bundle\FormBuilderBundle\BalloonFormBuilderBundle(),
             // ..
         );
     }

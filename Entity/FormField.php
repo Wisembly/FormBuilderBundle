@@ -3,6 +3,7 @@
 namespace Balloon\Bundle\FormBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 use Balloon\Bundle\FormBuilderBundle\Model\FormInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 
@@ -45,9 +46,14 @@ class FormField implements FormFieldInterface
     private $form;
 
     /**
-     * @ORM\OneToOne(targetEntity="FormFieldAnswer", mappedBy="field")
+     * @ORM\OneToMany(targetEntity="FormFieldAnswer", mappedBy="field", cascade={"remove"})
      */
     private $fieldAnswer;
+
+    public function __construct()
+    {
+        $this->fieldAnswer = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -129,6 +135,6 @@ class FormField implements FormFieldInterface
     {
         $fieldAnswer->setField($this);
 
-        $this->fieldAnswer = $fieldAnswer;
+        $this->fieldAnswer->add($fieldAnswer);
     }
 }

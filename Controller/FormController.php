@@ -72,7 +72,6 @@ class FormController extends Controller
     {
         $form = $this->get('balloon_form_manager')->find($formid);
         $fields = $this->get('balloon_form_builder')->build($formid);
-        $answers = $this->get('balloon_form_respond')->findAll($formid);
 
         if ('POST' === $request->getMethod()) {
             $fields->bindRequest($request);
@@ -82,13 +81,17 @@ class FormController extends Controller
                 $this->getDoctrine()->getEntityManager()->persist($answer);
                 $this->getDoctrine()->getEntityManager()->flush();
 
-                return $this->redirect($this->generateUrl('form_list'));
+                $request->getSession()->set('answered_'.$formid, true);
             }
         }
+
+        $answers = $this->get('balloon_form_respond')->findAll($formid);
+        $answered = $request->getSession()->get('answered_'.$formid, false);
 
         return $this->render('BalloonFormBuilderBundle:Form:answer.html.twig', array(
             'form'    => $form,
             'answers' => $answers,
+            'answered'=> $answered,
             'fields'  => $fields->createView(),
         ));
     }
