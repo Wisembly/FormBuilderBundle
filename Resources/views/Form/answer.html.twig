@@ -11,6 +11,7 @@
         </form>
     {% else %}
         {% if answers|length > 0 %}
+        <h2>Answers</h2>
         <table class="zebra-striped bordered-table">
             <thead>
                 {% for i,field in form.fields %}

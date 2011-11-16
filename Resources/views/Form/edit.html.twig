@@ -14,9 +14,11 @@
 
     <div class="alert-message block-message info">
         <h5>Add a field:
-        {% for type in form_types() %}
-            <a class="btn" href="{{ path('form_field_create', {"type": type, "formid": formid}) }}">{{ type }}</a>
-        {% endfor %}
+        <div class="alert-actions">
+            {% for type in form_types() %}
+                <a class="btn" href="{{ path('form_field_create', {"type": type, "formid": formid}) }}">{{ type }}</a>
+            {% endfor %}
+        </div>
     </div>
 
     {% form_theme fields _self %}
@@ -36,14 +38,14 @@
 
     {% block field_row %}{% spaceless %}
         {% if form.get("label") != "Form"  %}
-        <div class="form-row alert-message block-message warning">
-            {{ form_label(form, label|default(null)) }}
-            {{ form_errors(form) }}
-            {{ form_widget(form) }}
-            <br/><br/>
-            <a href="{{ path('form_field_edit', {"formid": formid, "index": form.get('name')}) }}">{{ "edit" | trans }}</a> |
-            <a href="{{ path('form_field_delete', {"formid": formid, "index": form.get('name')}) }}">{{ "delete" | trans }}</a>
-        </div>
+            <div class="form-row alert-message block-message warning">
+                {{ form_label(form, label|default(null)) }}
+                {{ form_errors(form) }}
+                {{ form_widget(form) }}
+                <br/><br/>
+                <a href="{{ path('form_field_edit', {"formid": formid, "index": form.get('name')}) }}">{{ "edit" | trans }}</a> |
+                <a href="{{ path('form_field_delete', {"formid": formid, "index": form.get('name')}) }}">{{ "delete" | trans }}</a>
+            </div>
         {% endif %}
     {% endspaceless %}{% endblock field_row %}
 {% endblock %}

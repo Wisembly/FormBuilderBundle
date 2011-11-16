@@ -4,8 +4,12 @@
     <h2>Create a form</h2>
     <hr/>
     <p>Your form has no field for the moment.</p>
-    <p>Start by choosing a field to add:</p>
-    {% for type in form_types() %}
-        <a class="btn" href="{{ path('form_field_create', {"type": type, "formid": formid}) }}">{{ type }}</a>
-    {% endfor %}
+    <div class="alert-message block-message info">
+        <p>Start by choosing a field to add:</p>
+        <div class="alert-actions">
+            {% for type in form_types() %}
+                <a class="btn" href="{{ path('form_field_create', {"type": type, "formid": formid}) }}">{{ type }}</a>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}
