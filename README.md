@@ -1,6 +1,19 @@
-Let your users create dynamic forms themselve with the form builder bundle
+Let your users create dynamic forms themselve
+
+Features:
+
+- Create forms
+- Add fields (register custom fields)
+- Answer to a form
+- View form results
 
 ## Installation
+
+Clone the project:
+
+```bash
+$ git submodule add git@github.com:Balloon/FormBuilderBundle.git vendor/bundles/Balloon/Bundle/FormBuilderBundle
+```
 
 Register the bundle in `AppKernel.php`:
 
