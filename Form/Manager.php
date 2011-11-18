@@ -6,8 +6,8 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 class Manager
 {
-    private $objectManager;
-    private $repository;
+    protected $objectManager;
+    protected $repository;
 
     public function __construct(ObjectManager $objectManager, $repositoryName)
     {
