@@ -59,12 +59,12 @@ class Builder
         $configOptions = isset($this->fieldConfig[$name]) ? $this->fieldConfig[$name] : $defaultOptions;
 
         foreach ($configOptions as $option => $val) {
-
             if (is_array($val)) {
-                // if value is an array create some fields
+                // if value is an empty array create some fields
                 if (empty($val)) {
                     $val = array_fill(0, 4, '');
                 }
+                // else we set the default value to the first element
                 else {
                     $val = reset($val);
                 }
@@ -72,6 +72,11 @@ class Builder
 
             if (!isset($data[$option])) {
                 $data[$option] = $val;
+            }
+
+            // fix boolean casting
+            if (is_bool($val) && !is_bool($data[$option])) {
+                $data[$option] = (bool) $data[$option];
             }
         }
 
