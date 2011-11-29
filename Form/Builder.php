@@ -11,10 +11,10 @@ use Symfony\Component\Form\FormFactory;
 
 class Builder
 {
-    private $formFactory;
-    private $decoder;
-    private $tallhat;
-    private $fieldConfig;
+    protected $formFactory;
+    protected $decoder;
+    protected $tallhat;
+    protected $fieldConfig;
 
     public function __construct(FormFactory $formFactory, Decoder $decoder, TallHat $tallhat, $fieldConfig)
     {
