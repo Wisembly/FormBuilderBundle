@@ -7,6 +7,7 @@ parameters:
     balloon_form_manager.class: Balloon\Bundle\FormBuilderBundle\Form\Manager
     balloon_form_storage.class: Balloon\Bundle\FormBuilderBundle\Form\Storage
     balloon_form_tallhat.class: Balloon\Bundle\FormBuilderBundle\Form\TallHat
+    balloon_form_renderer.class: Balloon\Bundle\FormBuilderBundle\Form\Renderer
 
 services:
     balloon_form_respond:
@@ -39,3 +40,7 @@ services:
     balloon_form_storage:
         class: %balloon_form_storage.class%
         arguments: [@session]
+
+    balloon_form_renderer:
+        class: %balloon_form_renderer.class%
+        arguments: [@balloon_form_builder, @form.factory, @twig.extension.form, @twig]
