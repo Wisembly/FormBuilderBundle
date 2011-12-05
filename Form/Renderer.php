@@ -8,9 +8,9 @@ use Symfony\Bridge\Twig\Extension\FormExtension;
 use Twig_Environment;
 
 /**
- * Class documentation
+ * This class can be used if you want to render frontend/backend templates for a field
  *
- * @author     Jules Boussekeyt <jules.boussekeyt@gmail.com>
+ * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
  */
 class Renderer
 {
