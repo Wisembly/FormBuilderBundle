@@ -12,10 +12,10 @@ Features:
 Clone the project:
 
 ```bash
-$ git submodule add git@github.com:Balloon/FormBuilderBundle.git vendor/bundles/Balloon/Bundle/FormBuilderBundle
+$ git submodule add -f git@github.com:Balloon/FormBuilderBundle.git vendor/bundles/Balloon/Bundle/FormBuilderBundle
 ```
 
-Register the bundle in `AppKernel.php`:
+Register the bundle in `app/AppKernel.php`:
 
 ```php
 <?php
@@ -76,6 +76,14 @@ Init assets:
 
 ```bash
 $ ./app/console assets:install web --symlink
+```
+
+And if you haven't a dedicated virtual host, add this to `app/config/config.yml`:
+
+```yaml
+framwork:
+    templating:
+        assets_base_urls: "/balloon-form"
 ```
 
 Your done now go to `/app_dev.php/form`
