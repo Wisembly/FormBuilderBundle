@@ -38,6 +38,7 @@ class Configuration implements ConfigurationInterface
                 ->defaultValue('Balloon\Bundle\FormBuilderBundle\Entity\FormFieldAnswer')
             ->end()
             ->arrayNode('fields')
+                ->isRequired()
                 ->useAttributeAsKey('name')
                 ->prototype('array')
                     ->useAttributeAsKey('name')

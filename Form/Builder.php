@@ -8,6 +8,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\FieldType;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormTypeInterface;
 
 class Builder
 {
@@ -46,11 +47,29 @@ class Builder
     }
 
     /**
-     * Lot's of magic here - keep in mind that a form types are the skeleton
+     * get a FormType
+     *
+     * @param mixed $type
      */
-    public function buildType($name, array $data = array())
+    public function getType($type)
     {
-        $data = $this->getTypeOptions($name, $data);
+        if (!$this->formFactory->hasType($type)) {
+            throw new \InvalidArgumentException("type '$type' do not exists");
+        }
+
+        return $this->formFactory->getType($type);
+    }
+
+    /**
+     * Build the Form of a given FormType
+     *
+     * @param FormTypeInterface $type
+     * @param array $data
+     */
+    public function buildType(FormTypeInterface $type, array $values = array())
+    {
+        $data = $this->getTypeOptions($type, $values);
+        $configOptions = $type->getDefaultOptions(array());
         $builder = $this->formFactory->createBuilder('form', $data);
 
         foreach ($data as $key => $val) {
@@ -70,12 +89,14 @@ class Builder
                     ));
                     break;
                 case 'array':
+                    // if there's no values, it's some blank fields
                     if (empty($val)) {
                         $builder->add($key, new CollectionType(), array(
                             'required'      => false,
                             'allow_add'     => true,
                             'allow_delete'  => true,
                         ));
+                    // else a select
                     } else {
                         $builder->add($key, new ChoiceType(), array(
                             'choices' => $configOptions[$key],
@@ -90,17 +111,21 @@ class Builder
         return $builder->getForm();
     }
 
-    public function getTypeOptions($name, array $data)
+    /**
+     * For a given FormType we get all options {@see FormTypeInterface::getDefaultOptions()}
+     *
+     * @param FormTypeInterface $type   The FormType
+     * @param array $values             Values for FormType options
+     */
+    public function getTypeOptions(FormTypeInterface $type, array $values = array())
     {
-        if (!$this->formFactory->hasType($name)) {
-            throw new \InvalidArgumentException("Field of type '$name' do not exists");
-        }
+        $options = isset($this->fieldConfig[$type->getName()])
+            ? $this->fieldConfig[$type->getName()]
+            : $type->getDefaultOptions(array());
 
-        $type = $this->formFactory->getType($name);
-        $defaultOptions = $type->getDefaultOptions(array());
-        $configOptions = isset($this->fieldConfig[$name]) ? $this->fieldConfig[$name] : $defaultOptions;
+        foreach ($options as $option => $val) {
 
-        foreach ($configOptions as $option => $val) {
+            // if field as an array value
             if (is_array($val)) {
                 // if value is an empty array create some fields
                 if (empty($val)) {
@@ -112,20 +137,22 @@ class Builder
                 }
             }
 
-            if (!isset($data[$option])) {
-                $data[$option] = $val;
+            // if a value is provided, bind it
+            if (!isset($values[$option])) {
+                $values[$option] = $val;
             }
 
             // fix boolean casting
-            if (is_bool($val) && !is_bool($data[$option])) {
-                $data[$option] = (bool) $data[$option];
+            if (is_bool($val) && !is_bool($values[$option])) {
+                $values[$option] = (bool) $values[$option];
             }
         }
 
-        if (isset($data['choices']) && false === array_search('', $data['choices'])) {
-            $data['choices'] += array_fill(count($data['choices']), count($data['choices']) + 2, '');
+        // if the field name is 'choices' we add some fields
+        if (isset($values['choices']) && false === array_search('', $values['choices'])) {
+            $values['choices'] += array_fill(count($values['choices']), count($values['choices']) + 2, '');
         }
 
-        return $data;
+        return $values;
     }
 }

@@ -1,22 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <phpunit bootstrap="Tests/bootstrap.php" colors="true">
-    <php>
-        <server name="SYMFONY" value="../../../../vendor/symfony/src" />
-        <server name="KERNEL_DIR" value="../../../../app" />
-    </php>
     <testsuites>
-        <testsuite name="FOSUserBundle">
+        <testsuite name="FormBuilderBundle">
             <directory suffix="Test.php">./Tests</directory>
         </testsuite>
     </testsuites>
-
     <filter>
         <whitelist>
             <directory>./</directory>
             <exclude>
                 <directory>./Resources</directory>
                 <directory>./Tests</directory>
+                <directory>./vendor</directory>
             </exclude>
         </whitelist>
     </filter>
