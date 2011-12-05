@@ -26,14 +26,16 @@ class Respond
     public function answer(FormInterface $form, array $data)
     {
         if ($form->getFields()->count() !== count($data)) {
+            // @codeCoverageIgnoreStart
             throw new \ErrorException('size of fields should be equals to the size of data');
+            // @codeCoverageIgnoreEnd
         }
 
         $index = 0;
         $fields = $form->getFields();
 
         $answer = new $this->answerClass;
-        $answer->setForm($form);
+        $form->addAnswer($answer);
 
         foreach ($data as $key => $value) {
             $fieldAnswer = new $this->fieldAnswerClass;

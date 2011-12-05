@@ -39,15 +39,23 @@ class Form implements FormInterface
      */
     protected $fields;
 
+    /**
+     * @var Form $form
+     *
+     * @ORM\OneToMany(targetEntity="FormAnswer", mappedBy="form", cascade={"persist", "remove", "merge"})
+     */
+    private $answers;
+
     public function __construct()
     {
         $this->fields = new ArrayCollection();
+        $this->answers = new ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -69,7 +77,7 @@ class Form implements FormInterface
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -91,5 +99,12 @@ class Form implements FormInterface
         $field->setForm($this);
 
         $this->fields->add($field);
+    }
+
+    public function addAnswer(FormAnswer $answer)
+    {
+        $answer->setForm($this);
+
+        $this->answers->add($answer);
     }
 }

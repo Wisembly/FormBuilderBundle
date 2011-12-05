@@ -13,9 +13,11 @@ class FormExtension extends \Twig_Extension
 
     public function getFunctions()
     {
+        // @codeCoverageIgnoreStart
         return array(
             'form_types' => new \Twig_Function_Method($this, 'getFormTypes'),
         );
+        // @codeCoverageIgnoreEnd
     }
 
     public function getFormTypes()

@@ -17,7 +17,9 @@ class Manager
 
     public function getRepository()
     {
+        // @codeCoverageIgnoreStart
         return $this->repository;
+        // @codeCoverageIgnoreEnd
     }
 
     public function find($id)

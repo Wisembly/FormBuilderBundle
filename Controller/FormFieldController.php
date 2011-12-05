@@ -12,7 +12,8 @@ class FormFieldController extends Controller
 {
     public function createAction(Request $request, $type, $formid)
     {
-        $form = $this->get('balloon_form_builder')->buildType($type);
+        $formType = $this->get('balloon_form_builder')->getType($type);
+        $form = $this->get('balloon_form_builder')->buildType($formType);
 
         if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
@@ -20,8 +21,10 @@ class FormFieldController extends Controller
                 $this->get('balloon_form_storage')->add($formid, $type, $form->getData());
 
                 return $this->redirect($this->generateUrl('form_edit', array('formid' => $formid)));
+                // @codeCoverageIgnoreStart
             }
         }
+        // @codeCoverageIgnoreEnd
 
         return $this->render('BalloonFormBuilderBundle:FormField:create.html.twig', array(
             'type' => $type,
@@ -33,7 +36,8 @@ class FormFieldController extends Controller
     {
         $fieldArr = $this->get('balloon_form_storage')->get($formid, $index);
         $field = $this->get('balloon_form_decoder')->decodeField($fieldArr);
-        $form = $this->get('balloon_form_builder')->buildType($field->getType(), $field->getOptions());
+        $formType = $this->get('balloon_form_builder')->getType($field->getType());
+        $form = $this->get('balloon_form_builder')->buildType($formType, $field->getOptions());
 
         if ('POST' === $request->getMethod()) {
             $form->bindRequest($request);
@@ -41,8 +45,10 @@ class FormFieldController extends Controller
                 $this->get('balloon_form_storage')->set($formid, $index, $field->getType(), $form->getData());
 
                 return $this->redirect($this->generateUrl('form_edit', array('formid' => $formid)));
+                // @codeCoverageIgnoreStart
             }
         }
+        // @codeCoverageIgnoreEnd
 
         return $this->render('BalloonFormBuilderBundle:FormField:create.html.twig', array(
             'type' => $field->getType(),

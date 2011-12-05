@@ -37,6 +37,8 @@ class TallHat
             return $fields;
         }
 
+        // @codeCoverageIgnoreStart
         throw new \ErrorException("should not happen, formid : $formid");
+        // @codeCoverageIgnoreEnd
     }
 }

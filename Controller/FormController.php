@@ -47,8 +47,10 @@ class FormController extends Controller
                 $this->getDoctrine()->getEntityManager()->flush();
 
                 return $this->redirect($this->generateUrl('form_list'));
+                // @codeCoverageIgnoreStart
             }
         }
+        // @codeCoverageIgnoreEnd
 
         return $this->render('BalloonFormBuilderBundle:Form:edit.html.twig', array(
             'formid' => $formid,

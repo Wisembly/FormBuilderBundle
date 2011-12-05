@@ -25,6 +25,12 @@ class FormControllerTest extends WebTestCase
     public static function tearDownAfterClass()
     {
         static::createClient()->getContainer()->get('database_connection')
+            ->exec("DELETE FROM FormFieldAnswer");
+
+        static::createClient()->getContainer()->get('database_connection')
+            ->exec("DELETE FROM FormAnswer");
+
+        static::createClient()->getContainer()->get('database_connection')
             ->exec("DELETE FROM FormField");
 
         static::createClient()->getContainer()->get('database_connection')
@@ -35,7 +41,7 @@ class FormControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/form');
+        $crawler = $client->request('GET', '/form/');
         $this->assertTrue($crawler->filter('html:contains("toto")')->count() > 0, $client->getResponse()->getContent());
     }
 
@@ -43,7 +49,7 @@ class FormControllerTest extends WebTestCase
     {
         $client = static::createClient();
 
-        $crawler = $client->request('GET', '/form');
+        $crawler = $client->request('GET', '/form/');
         $crawler = $client->click($crawler->selectLink('create a form')->link());
 
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
@@ -134,12 +140,34 @@ class FormControllerTest extends WebTestCase
         $client = $this->createClient();
     }
 
+    public function testAnswerForm()
+    {
+        $client = self::createClient();
+
+        // go to answer a form
+        $crawler = $client->request('GET', '/form/');
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+        $this->assertEquals(1, $crawler->filter('html:contains("A form")')->count());
+        $crawler = $client->click($crawler->selectLink('answer')->link());
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
+
+        // answer the form
+        $form = $crawler->selectButton('answer it!')->form(array(
+            'form[0]' => 'field1',
+            'form[1]' => 'field2',
+        ));
+        $crawler = $client->submit($form);
+
+        $this->assertEquals(1, $crawler->filter('html:contains("field1")')->count());
+        $this->assertEquals(1, $crawler->filter('html:contains("field2")')->count());
+    }
+
     public function testDeleteForm()
     {
         $client = self::createClient();
 
         // delete a form
-        $crawler = $client->request('GET', '/form');
+        $crawler = $client->request('GET', '/form/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->filter('html:contains("A form")')->count());
         $crawler = $client->click($crawler->selectLink('delete')->link());
