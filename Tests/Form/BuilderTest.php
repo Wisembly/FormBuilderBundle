@@ -54,15 +54,12 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
     {
         $formFactory = new FormFactory(array(new CoreExtension()));
 
-        $decoder = \Mockery::mock('\Balloon\Bundle\FormBuilderBundle\Form\Decoder', array(
-        ));
-
         $tallHat = \Mockery::mock('\Balloon\Bundle\FormBuilderBundle\Form\TallHat', array(
         ));
 
         $config = array();
 
-        return new Builder($formFactory, $decoder, $tallHat, $config);
+        return new Builder($formFactory, $tallHat, $config);
     }
 
     public function getTypeMock()

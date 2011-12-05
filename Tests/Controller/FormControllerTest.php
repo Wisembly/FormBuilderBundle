@@ -79,7 +79,7 @@ class FormControllerTest extends WebTestCase
         $field = $session->get('forms_'.$formid);
         $this->assertArrayHasKey(0, $field);
         $this->assertEquals('field', $field[0]['type']);
-        $this->assertEquals('field label', $field[0]['label']);
+        $this->assertEquals('field label', $field[0]['options']['label']);
     }
 
     public function testEditForm()

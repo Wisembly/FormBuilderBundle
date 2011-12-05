@@ -28,4 +28,19 @@ interface FormFieldInterface
      * @param FormInterface $form
      */
     public function setForm(FormInterface $form);
+
+    /**
+     * toArray
+     *
+     * @param FormFieldInterface $field
+     */
+    public static function toArray(FormFieldInterface $field);
+
+    /**
+     * fromArray
+     *
+     * @param FormFieldInterface $field
+     * @param array $data
+     */
+    public static function fromArray(array $data, FormFieldInterface $field = null);
 }

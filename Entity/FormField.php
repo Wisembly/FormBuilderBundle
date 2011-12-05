@@ -36,7 +36,7 @@ class FormField implements FormFieldInterface
      *
      * @ORM\Column(name="options", type="array")
      */
-    private $options;
+    private $options = array();
 
     /**
      * @var string $form
@@ -55,10 +55,28 @@ class FormField implements FormFieldInterface
         $this->fieldAnswer = new ArrayCollection();
     }
 
+    public static function toArray(FormFieldInterface $field)
+    {
+        return array(
+            'type'      => $field->getType(),
+            'options'   => $field->getOptions(),
+        );
+    }
+
+    public static function fromArray(array $data, FormFieldInterface $field = null)
+    {
+        $field = null === $field ? new self() : $field;
+
+        if (isset($data['type']))       $field->setType($data['type']);
+        if (isset($data['options']))    $field->setOptions($data['options']);
+
+        return $field;
+    }
+
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -80,7 +98,7 @@ class FormField implements FormFieldInterface
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {

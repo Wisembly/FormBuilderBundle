@@ -42,7 +42,10 @@ class FormController extends Controller
             $formForm->bindRequest($this->getRequest());
 
             if ($formForm->isValid()) {
-                $this->get('balloon_form_decoder')->decode($form, $fields);
+                foreach ($fields as $field) {
+                    $form->addField($field);
+                }
+
                 $this->getDoctrine()->getEntityManager()->persist($form);
                 $this->getDoctrine()->getEntityManager()->flush();
 

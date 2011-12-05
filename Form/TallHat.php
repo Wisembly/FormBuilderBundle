@@ -6,13 +6,13 @@ class TallHat
 {
     private $manager;
     private $storage;
-    private $encoder;
+    private $factory;
 
-    public function __construct(Manager $manager, Storage $storage, Encoder $encoder)
+    public function __construct(Manager $manager, Storage $storage, Factory $factory)
     {
         $this->manager = $manager;
         $this->storage = $storage;
-        $this->encoder = $encoder;
+        $this->factory = $factory;
     }
 
     /**
@@ -26,15 +26,20 @@ class TallHat
     public function findFields($formid)
     {
         if (null !== ($fields = $this->storage->all($formid))) {
-            return $fields;
+            return array_map(array($this->factory->fieldInstance(), 'fromArray'), $fields);
         }
 
         if (null !== ($form = $this->manager->find($formid))) {
-            $fields = $this->encoder->encode($form);
+            if ($form->getFields()->count() > 0) {
+                $fields = array_map(array($form->getFields()->first(), 'toArray'), $form->getFields()->toArray());
+            } else {
+                $fields = array();
+            }
+
             // TODO remove me
             $this->storage->init($formid, $fields);
 
-            return $fields;
+            return $form->getFields()->toArray();
         }
 
         // @codeCoverageIgnoreStart

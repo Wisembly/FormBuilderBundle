@@ -1,8 +1,6 @@
 parameters:
     balloon_form_respond.class: Balloon\Bundle\FormBuilderBundle\Form\Respond
     balloon_form_builder.class: Balloon\Bundle\FormBuilderBundle\Form\Builder
-    balloon_form_decoder.class: Balloon\Bundle\FormBuilderBundle\Form\Decoder
-    balloon_form_encoder.class: Balloon\Bundle\FormBuilderBundle\Form\Encoder
     balloon_form_factory.class: Balloon\Bundle\FormBuilderBundle\Form\Factory
     balloon_form_manager.class: Balloon\Bundle\FormBuilderBundle\Form\Manager
     balloon_form_storage.class: Balloon\Bundle\FormBuilderBundle\Form\Storage
@@ -16,14 +14,7 @@ services:
 
     balloon_form_builder:
         class: %balloon_form_builder.class%
-        arguments: [@form.factory, @balloon_form_decoder, @balloon_form_tallhat, %balloon_form_config%]
-
-    balloon_form_decoder:
-        class: %balloon_form_decoder.class%
-        arguments: [@balloon_form_factory]
-
-    balloon_form_encoder:
-        class: %balloon_form_encoder.class%
+        arguments: [@form.factory, @balloon_form_tallhat, %balloon_form_config%]
 
     balloon_form_factory:
         class: %balloon_form_factory.class%
@@ -31,7 +22,7 @@ services:
 
     balloon_form_tallhat:
         class: %balloon_form_tallhat.class%
-        arguments: [@balloon_form_manager, @balloon_form_storage, @balloon_form_encoder]
+        arguments: [@balloon_form_manager, @balloon_form_storage, @balloon_form_factory]
 
     balloon_form_manager:
         class: %balloon_form_manager.class%

@@ -13,14 +13,12 @@ use Symfony\Component\Form\FormTypeInterface;
 class Builder
 {
     protected $formFactory;
-    protected $decoder;
     protected $tallhat;
     protected $fieldConfig;
 
-    public function __construct(FormFactory $formFactory, Decoder $decoder, TallHat $tallhat, $fieldConfig)
+    public function __construct(FormFactory $formFactory, TallHat $tallhat, $fieldConfig)
     {
         $this->formFactory = $formFactory;
-        $this->decoder = $decoder;
         $this->tallhat = $tallhat;
         $this->fieldConfig = $fieldConfig;
     }
@@ -35,12 +33,7 @@ class Builder
         $builder = $this->formFactory->createBuilder('form', $bindData ? $fields : array());
 
         foreach ($fields as $i => $field) {
-            if ($field instanceof FormFieldInterface) {
-                $builder->add((string)$field->getId(), $field->getType(), $field->getOptions());
-            } else {
-                $field = $this->decoder->decodeField($field);
-                $builder->add((string)$i, $field->getType(), $field->getOptions());
-            }
+            $builder->add((string)$i, $field->getType(), $field->getOptions());
         }
 
         return $builder->getForm();

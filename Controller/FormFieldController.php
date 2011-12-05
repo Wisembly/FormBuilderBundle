@@ -35,7 +35,7 @@ class FormFieldController extends Controller
     public function editAction(Request $request, $index, $formid)
     {
         $fieldArr = $this->get('balloon_form_storage')->get($formid, $index);
-        $field = $this->get('balloon_form_decoder')->decodeField($fieldArr);
+        $field = $this->get('balloon_form_factory')->fieldInstance()->fromArray($fieldArr);
         $formType = $this->get('balloon_form_builder')->getType($field->getType());
         $form = $this->get('balloon_form_builder')->buildType($formType, $field->getOptions());
 
