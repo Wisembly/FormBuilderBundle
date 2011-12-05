@@ -157,6 +157,7 @@ class FormControllerTest extends WebTestCase
             'form[1]' => 'field2',
         ));
         $crawler = $client->submit($form);
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
         $this->assertEquals(1, $crawler->filter('html:contains("field1")')->count());
         $this->assertEquals(1, $crawler->filter('html:contains("field2")')->count());

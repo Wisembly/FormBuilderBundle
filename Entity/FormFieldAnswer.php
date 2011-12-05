@@ -3,6 +3,9 @@
 namespace Balloon\Bundle\FormBuilderBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormAnswerInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldAnswerInterface;
 
 /**
  * Balloon\FormBundle\Entity\FormItemAnswer
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity
  */
-class FormFieldAnswer
+class FormFieldAnswer implements FormFieldAnswerInterface
 {
     /**
      * @var integer $id
@@ -40,7 +43,7 @@ class FormFieldAnswer
      */
     private $answer;
 
-    public function setField(FormField $field)
+    public function setField(FormFieldInterface $field)
     {
         $this->field = $field;
     }
@@ -90,7 +93,7 @@ class FormFieldAnswer
         }
     }
 
-    public function setAnswer($answer)
+    public function setAnswer(FormAnswerInterface $answer)
     {
         $this->answer = $answer;
     }

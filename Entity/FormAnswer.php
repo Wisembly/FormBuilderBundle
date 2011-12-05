@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Balloon\Bundle\FormBuilderBundle\Model\FormInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldAnswerInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormAnswerInterface;
 
 /**
@@ -54,10 +55,10 @@ class FormAnswer implements FormAnswerInterface
         return $this->fieldAnswers;
     }
 
-    public function addField(FormFieldInterface $field)
+    public function addFieldAnswer(FormFieldAnswerInterface $fieldAnswer)
     {
-        $field->setAnswer($this);
+        $fieldAnswer->setAnswer($this);
 
-        $this->fieldAnswers->add($field);
+        $this->fieldAnswers->add($fieldAnswer);
     }
 }

@@ -17,5 +17,5 @@ interface FormAnswerInterface
     /**
      * @param FormFieldInterface $field
      */
-    public function addField(FormFieldInterface $field);
+    public function addFieldAnswer(FormFieldAnswerInterface $fieldAnswer);
 }

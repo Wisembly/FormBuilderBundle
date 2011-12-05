@@ -43,7 +43,7 @@ class Respond
             $fields->get($index)->addFieldAnswer($fieldAnswer);
             $fieldAnswer->setValue($value);
 
-            $answer->addField($fieldAnswer);
+            $answer->addFieldAnswer($fieldAnswer);
 
             $index++;
         }
