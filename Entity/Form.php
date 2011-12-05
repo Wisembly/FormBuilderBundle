@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Balloon\Bundle\FormBuilderBundle\Model\FormInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormAnswerInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 
 /**
@@ -84,11 +85,6 @@ class Form implements FormInterface
         return $this->name;
     }
 
-    public function resetFields()
-    {
-        $this->fields->clear();
-    }
-
     public function getFields()
     {
         return $this->fields;
@@ -101,7 +97,7 @@ class Form implements FormInterface
         $this->fields->add($field);
     }
 
-    public function addAnswer(FormAnswer $answer)
+    public function addAnswer(FormAnswerInterface $answer)
     {
         $answer->setForm($this);
 

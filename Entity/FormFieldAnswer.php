@@ -40,21 +40,6 @@ class FormFieldAnswer
      */
     private $answer;
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getField()
-    {
-        return $this->field;
-    }
-
     public function setField(FormField $field)
     {
         $this->field = $field;
@@ -63,11 +48,6 @@ class FormFieldAnswer
     public function setValue($value)
     {
         $this->value = $value;
-    }
-
-    public function getValue()
-    {
-        return $this->value;
     }
 
     public function getScalarValue()
@@ -113,10 +93,5 @@ class FormFieldAnswer
     public function setAnswer($answer)
     {
         $this->answer = $answer;
-    }
-
-    public function getAnswer()
-    {
-        return $this->answer;
     }
 }

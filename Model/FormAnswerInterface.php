@@ -4,7 +4,18 @@ namespace Balloon\Bundle\FormBuilderBundle\Model;
 
 interface FormAnswerInterface
 {
-    public function getForm();
-
+    /**
+     * @param FormInterface $form
+     */
     public function setForm(FormInterface $form);
+
+    /**
+     * @return ArrayCollection
+     */
+    public function getFieldAnswers();
+
+    /**
+     * @param FormFieldInterface $field
+     */
+    public function addField(FormFieldInterface $field);
 }

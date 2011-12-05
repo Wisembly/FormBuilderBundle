@@ -5,6 +5,16 @@ namespace Balloon\Bundle\FormBuilderBundle\Model;
 interface FormInterface
 {
     /**
+     * @return integer
+     */
+    public function getId();
+
+    /**
+     * @param string $name
+     */
+    public function setName($name);
+
+    /**
      * @return string
      */
     public function getName();
@@ -14,7 +24,13 @@ interface FormInterface
      */
     public function getFields();
 
-    public function resetFields();
+    /**
+     * @param FormFieldInterface $field
+     */
+    public function addField(FormFieldInterface $field);
 
-    //public function addField(FieldInterface $field);
+    /**
+     * @param FormAnswerInterface $answer
+     */
+    public function addAnswer(FormAnswerInterface $answer);
 }

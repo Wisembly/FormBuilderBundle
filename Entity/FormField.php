@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Balloon\Bundle\FormBuilderBundle\Model\FormInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldAnswerInterface;
 
 /**
  * Balloon\Bundle\FormBuilderBundle\Entity\FormField
@@ -74,16 +75,6 @@ class FormField implements FormFieldInterface
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Set type
      *
      * @param string $type
@@ -140,11 +131,6 @@ class FormField implements FormFieldInterface
         return $this->options;
     }
 
-    public function getOption($option)
-    {
-        return $this->options[$option];
-    }
-
     /**
      * Set form
      *
@@ -157,17 +143,7 @@ class FormField implements FormFieldInterface
         return $this;
     }
 
-    /**
-     * Get form
-     *
-     * @return string
-     */
-    public function getForm()
-    {
-        return $this->form;
-    }
-
-    public function addFieldAnswer($fieldAnswer)
+    public function addFieldAnswer(FormFieldAnswerInterface $fieldAnswer)
     {
         $fieldAnswer->setField($this);
 

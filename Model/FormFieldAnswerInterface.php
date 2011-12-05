@@ -4,15 +4,23 @@ namespace Balloon\Bundle\FormBuilderBundle\Model;
 
 interface FormFieldAnswerInterface
 {
+    /**
+     * @param FormAnswerInterface $answer
+     */
     public function setAnswer(FormAnswerInterface $answer);
 
-    public function getAnswer();
-
+    /**
+     * @param FormFieldInterface $field
+     */
     public function setField(FormFieldInterface $field);
 
-    public function getField();
-
+    /**
+     * @param mixed $value
+     */
     public function setValue($value);
 
-    public function getValue();
+    /**
+     * @return string
+     */
+    public function getScalarValue();
 }

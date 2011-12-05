@@ -30,6 +30,11 @@ interface FormFieldInterface
     public function setForm(FormInterface $form);
 
     /**
+     * @param FormFieldAnswerInterface $fieldAnswer
+     */
+    public function addFieldAnswer(FormFieldAnswerInterface $fieldAnswer);
+
+    /**
      * toArray
      *
      * @param FormFieldInterface $field
