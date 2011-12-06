@@ -49,7 +49,7 @@ class FormController extends Controller
 
         $formForm = $this->createFormBuilder($form)->add('name')->getForm();
 
-        $fields = $this->get('balloon_form_tallhat')->findFields($formid);
+        $fields = $this->get('balloon_form_promise')->findFields($formid);
         $fieldsForm = $this->get('balloon_form_builder')->buildFields($fields, false);
 
         if ('POST' === $this->getRequest()->getMethod()) {

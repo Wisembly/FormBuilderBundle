@@ -12,11 +12,11 @@
 namespace Balloon\Bundle\FormBuilderBundle\Form;
 
 /**
- * TallHat
+ * Promise
  *
  * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
  */
-class TallHat
+class Promise
 {
     private $manager;
     private $storage;

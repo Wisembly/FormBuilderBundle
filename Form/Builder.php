@@ -27,19 +27,19 @@ use Symfony\Component\Form\FormTypeInterface;
 class Builder
 {
     protected $formFactory;
-    protected $tallhat;
+    protected $promise;
     protected $fieldConfig;
 
-    public function __construct(FormFactory $formFactory, TallHat $tallhat, $fieldConfig)
+    public function __construct(FormFactory $formFactory, Promise $promise, $fieldConfig)
     {
         $this->formFactory = $formFactory;
-        $this->tallhat = $tallhat;
+        $this->promise = $promise;
         $this->fieldConfig = $fieldConfig;
     }
 
     public function build($formid, $bindData = false)
     {
-        return $this->buildFields($this->tallhat->findFields($formid), $bindData);
+        return $this->buildFields($this->promise->findFields($formid), $bindData);
     }
 
     public function buildFields(array $fields, $bindData = false)

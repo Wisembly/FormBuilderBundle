@@ -4,7 +4,7 @@ parameters:
     balloon_form_factory.class: Balloon\Bundle\FormBuilderBundle\Form\Factory
     balloon_form_manager.class: Balloon\Bundle\FormBuilderBundle\Form\Manager
     balloon_form_storage.class: Balloon\Bundle\FormBuilderBundle\Form\Storage
-    balloon_form_tallhat.class: Balloon\Bundle\FormBuilderBundle\Form\TallHat
+    balloon_form_promise.class: Balloon\Bundle\FormBuilderBundle\Form\Promise
     balloon_form_renderer.class: Balloon\Bundle\FormBuilderBundle\Form\Renderer
 
 services:
@@ -14,14 +14,14 @@ services:
 
     balloon_form_builder:
         class: %balloon_form_builder.class%
-        arguments: [@form.factory, @balloon_form_tallhat, %balloon_form_config%]
+        arguments: [@form.factory, @balloon_form_promise, %balloon_form_config%]
 
     balloon_form_factory:
         class: %balloon_form_factory.class%
         arguments: [%balloon_form_entity%, %balloon_field_entity%]
 
-    balloon_form_tallhat:
-        class: %balloon_form_tallhat.class%
+    balloon_form_promise:
+        class: %balloon_form_promise.class%
         arguments: [@balloon_form_manager, @balloon_form_storage, @balloon_form_factory]
 
     balloon_form_manager:
