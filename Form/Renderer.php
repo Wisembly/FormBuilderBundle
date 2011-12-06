@@ -46,9 +46,10 @@ class Renderer
 
     public function renderBack($type, array $options = array())
     {
-        $typeOptions = $this->builder->getTypeOptions($type, $options);
         $formType = $this->formFactory->getType($type);
-        $formView = $this->builder->buildType($type, $typeOptions)->createView();
+        $typeOptions = $this->builder->getTypeOptions($formType, $options);
+        $formType = $this->formFactory->getType($type);
+        $formView = $this->builder->buildType($formType, $typeOptions)->createView();
 
         return $this->formExtension->renderRow($formView);
     }

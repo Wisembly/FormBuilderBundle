@@ -66,7 +66,7 @@ class FormField implements FormFieldInterface
 
     public static function fromArray(array $data, FormFieldInterface $field = null)
     {
-        $field = null === $field ? new self() : $field;
+        $field = null === $field ? new static() : $field;
 
         if (isset($data['type']))       $field->setType($data['type']);
         if (isset($data['options']))    $field->setOptions($data['options']);

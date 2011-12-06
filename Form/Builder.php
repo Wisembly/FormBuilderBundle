@@ -63,6 +63,7 @@ class Builder
     {
         $data = $this->getTypeOptions($type, $values);
         $configOptions = $type->getDefaultOptions(array());
+        $configOptions = isset($this->fieldConfig[$type->getName()]) ? $this->fieldConfig[$type->getName()] : $configOptions;
         $builder = $this->formFactory->createBuilder('form', $data);
 
         foreach ($data as $key => $val) {

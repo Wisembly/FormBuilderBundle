@@ -24,14 +24,14 @@ class Form implements FormInterface
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string $name
      *
      * @ORM\Column(name="name", type="string", length=255)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $name
@@ -45,7 +45,7 @@ class Form implements FormInterface
      *
      * @ORM\OneToMany(targetEntity="FormAnswer", mappedBy="form", cascade={"persist", "remove", "merge"})
      */
-    private $answers;
+    protected $answers;
 
     public function __construct()
     {
@@ -102,5 +102,10 @@ class Form implements FormInterface
         $answer->setForm($this);
 
         $this->answers->add($answer);
+    }
+
+    public function getAnswers()
+    {
+        return $this->answers;
     }
 }
