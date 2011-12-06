@@ -72,6 +72,14 @@ balloon_form_builder:
             label:      ~
 ```
 
+Add this section to your `app/config/routing.yml` file:
+
+```yaml
+balloon_form_builder:
+    resource: "@BalloonFormBuilderBundle/Resources/config/routing.yml"
+    prefix:   /form
+```
+
 Init assets:
 
 ```bash
