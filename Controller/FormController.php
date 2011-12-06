@@ -115,6 +115,3 @@ class FormController extends Controller
         ));
     }
 }
-        ));
-    }
-}
