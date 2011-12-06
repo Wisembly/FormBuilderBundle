@@ -1,13 +1,26 @@
 <?php
 
+/*
+ * This file is part of the BalloonFormBuilderBundle
+ *
+ * (c) Balloon <contact@balloonup.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Balloon\Bundle\FormBuilderBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-
-use Balloon\Bundle\FormBuilderBundle\Entity\Form;
 use Balloon\Bundle\FormBuilderBundle\Entity\Field;
+use Balloon\Bundle\FormBuilderBundle\Entity\Form;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * FormFieldController
+ *
+ * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
+ */
 class FormFieldController extends Controller
 {
     public function createAction(Request $request, $type, $formid)

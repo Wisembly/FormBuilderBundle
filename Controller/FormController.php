@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BalloonFormBuilderBundle
+ *
+ * (c) Balloon <contact@balloonup.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Balloon\Bundle\FormBuilderBundle\Controller;
 
 use Balloon\Bundle\FormBuilderBundle\Entity\Field;
@@ -7,6 +16,11 @@ use Balloon\Bundle\FormBuilderBundle\Entity\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * FormController
+ *
+ * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
+ */
 class FormController extends Controller
 {
     public function listAction()
@@ -98,6 +112,9 @@ class FormController extends Controller
             'answers' => $answers,
             'answered'=> $answered,
             'fields'  => $fields->createView(),
+        ));
+    }
+}
         ));
     }
 }

@@ -1,17 +1,28 @@
 <?php
 
+/*
+ * This file is part of the BalloonFormBuilderBundle
+ *
+ * (c) Balloon <contact@balloonup.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Balloon\Bundle\FormBuilderBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormAnswerInterface;
 use Balloon\Bundle\FormBuilderBundle\Model\FormFieldAnswerInterface;
+use Balloon\Bundle\FormBuilderBundle\Model\FormFieldInterface;
+use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Balloon\FormBundle\Entity\FormItemAnswer
+ * FormFieldAnswer
  *
  * @ORM\Table()
  * @ORM\Entity
+ *
+ * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
  */
 class FormFieldAnswer implements FormFieldAnswerInterface
 {

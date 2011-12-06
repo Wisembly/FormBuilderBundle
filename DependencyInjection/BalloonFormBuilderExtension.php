@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of the BalloonFormBuilderBundle
+ *
+ * (c) Balloon <contact@balloonup.com>
+ *
+ * This source file is subject to the MIT license that is bundled
+ * with this source code in the file LICENSE.
+ */
+
 namespace Balloon\Bundle\FormBuilderBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -8,9 +17,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * This is the class that loads and manages your bundle configuration
+ * BalloonFormBuilderExtension
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
  */
 class BalloonFormBuilderExtension extends Extension
 {
