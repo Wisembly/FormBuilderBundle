@@ -21,6 +21,9 @@ use Balloon\Bundle\FormBuilderBundle\Model\FormAnswerInterface;
 /**
  * FormAnswer
  *
+ * @ORM\Table()
+ * @ORM\Entity
+ *
  * @author Jules Boussekeyt <jules.boussekeyt@gmail.com>
  */
 class FormAnswer implements FormAnswerInterface
