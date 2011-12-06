@@ -1,4 +1,4 @@
-Let your users create dynamic forms themselve
+Let your users create dynamic forms and store them in the database.
 
 Features:
 
