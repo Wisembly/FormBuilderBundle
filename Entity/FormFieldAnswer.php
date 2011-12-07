@@ -96,7 +96,8 @@ class FormFieldAnswer implements FormFieldAnswerInterface
                 return $this->value ? '~' : '';
             default:
                 if ($this->field->getType() == 'choice') {
-                    $choices = $this->field->getOption('choices');
+                    $options = $this->field->getOptions();
+                    $choices = $options['choices'];
 
                     return $choices[$this->value];
                 }
