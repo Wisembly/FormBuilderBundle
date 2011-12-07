@@ -84,7 +84,8 @@ class FormFieldAnswer implements FormFieldAnswerInterface
             case 'array':
                 $choices = array();
 
-                foreach ($this->field->getOption('choices') as $k => $v) {
+                $options = $this->field->getOptions();
+                foreach ($options['choices'] as $k => $v) {
                     if (false !== array_search($k, $this->value)) {
                         $choices[] = $v;
                     }
