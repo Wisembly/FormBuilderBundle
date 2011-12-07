@@ -41,7 +41,8 @@ class Renderer
     public function renderFront($type, array $options = array())
     {
         $formType = $this->formFactory->getType($type);
-        $defaultOptions = $formType->getDefaultOptions(array());
+        $defaultOptions = $formType->getDefaultOptions($options);
+        $defaultOptions = array_merge($defaultOptions, $options);
 
         $formBuilder = $formType
             ->createBuilder('form', $this->formFactory, $defaultOptions)
