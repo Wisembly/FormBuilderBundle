@@ -9,9 +9,9 @@
     {% for form in forms %}
         <div class="form-list well">
             <em>{{ form.name }}</em>
-            <a class="btn small info" href="{{ path("form_edit", {"formid": form.id}) }}">edit</a>
+            <a class="btn small danger" href="{{ path("form_delete", {"formid": form.id}) }}" onclick="return confirm("Confirm deletion?")">delete</a>
             <a class="btn small success" href="{{ path("form_answer", {"formid": form.id}) }}">answer</a>
-            <a class="btn small danger" href="{{ path("form_delete", {"formid": form.id}) }}">delete</a>
+            <a class="btn small info" href="{{ path("form_edit", {"formid": form.id}) }}">edit</a>
         </div>
     {% else %}
             <em>no form yet..</em>
