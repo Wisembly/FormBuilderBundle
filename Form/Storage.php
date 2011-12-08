@@ -64,7 +64,7 @@ class Storage
     {
         $fields = $this->_get($formid);
 
-        $fields[$index] = array('type' => $type) + $data;
+        $fields[$index] = array('type' => $type, 'options' => $data);
 
         $this->_set($formid, $fields);
     }
