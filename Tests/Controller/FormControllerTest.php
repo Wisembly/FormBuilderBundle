@@ -121,7 +121,7 @@ class FormControllerTest extends WebTestCase
         $field = $session->get('forms_'.self::$formId);
         $this->assertArrayHasKey(0, $field);
         $this->assertEquals('field', $field[0]['type']);
-        $this->assertEquals('field label edited', $field[0]['label']);
+        $this->assertEquals('field label edited', $field[0]['options']['label']);
     }
 
     public function testDeleteField()
