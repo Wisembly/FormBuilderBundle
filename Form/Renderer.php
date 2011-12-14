@@ -28,30 +28,26 @@ class Renderer
     private $builder;
     private $formFactory;
     private $formExtension;
+    private $theme;
 
-    public function __construct(Builder $builder, FormFactory $formFactory, FormExtension $formExtension, Twig_Environment $twig)
+    public function __construct(Builder $builder, FormFactory $formFactory, FormExtension $formExtension, Twig_Environment $twig, array $themes = array())
     {
         $this->builder = $builder;
         $this->formFactory = $formFactory;
         $this->formExtension = $formExtension;
+        $this->themes = $themes;
 
         $this->formExtension->initRuntime($twig);
     }
 
     public function renderFront($type, array $options = array())
     {
-        $formType = $this->formFactory->getType($type);
-        $defaultOptions = $formType->getDefaultOptions($options);
-        $defaultOptions = array_merge($defaultOptions, $options);
+        $formView = $this->formFactory
+            ->createBuilder($type, null, $options)
+            ->getForm()
+            ->createView();
 
-        $formBuilder = $formType
-            ->createBuilder('form', $this->formFactory, $defaultOptions)
-            ->setTypes(array($formType));
-
-        $formView = new FormView();
-
-        $formType->buildForm($formBuilder, $defaultOptions);
-        $formType->buildView($formView, $formBuilder->getForm());
+        $this->formExtension->setTheme($formView, $this->themes);
 
         return $this->formExtension->renderRow($formView);
     }

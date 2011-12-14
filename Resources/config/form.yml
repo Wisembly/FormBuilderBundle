@@ -34,4 +34,4 @@ services:
 
     balloon_form_renderer:
         class: %balloon_form_renderer.class%
-        arguments: [@balloon_form_builder, @form.factory, @twig.extension.form, @twig]
+        arguments: [@balloon_form_builder, @form.factory, @twig.extension.form, @twig, [%balloon_form_theme%]]

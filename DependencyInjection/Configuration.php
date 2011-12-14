@@ -32,6 +32,9 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
+            ->scalarNode('theme')
+                ->defaultNull()
+            ->end()
             ->scalarNode('form_entity')
                 ->defaultValue('Balloon\Bundle\FormBuilderBundle\Entity\Form')
             ->end()
