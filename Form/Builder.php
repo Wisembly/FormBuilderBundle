@@ -108,6 +108,7 @@ class Builder
                     } else {
                         $builder->add($key, new ChoiceType(), array(
                             'choices' => $configOptions[$key],
+                            'expanded' => false
                         ));
                     }
                     break;
