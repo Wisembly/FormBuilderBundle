@@ -45,6 +45,14 @@ class BalloonFormBuilderExtensionTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals(null, $configuration['field']['label']);
     }
 
+    public function testFormLoadWithEmptyResources()
+    {
+        $loader = new BalloonFormBuilderExtension();
+        $config = $this->createEmptyConfiguration();
+        $configuration = $this->configuration->getParameter('balloon_form_resources');
+        $this->assertEquals(array(), $configuration);
+    }
+
     protected function createEmptyConfiguration()
     {
         $this->configuration = new ContainerBuilder();
