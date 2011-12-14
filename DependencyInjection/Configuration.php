@@ -41,6 +41,7 @@ class Configuration implements ConfigurationInterface
                         return array();
                     })
                 ->end()
+                ->prototype('scalar')->end()
             ->end()
             ->scalarNode('form_entity')
                 ->defaultValue('Balloon\Bundle\FormBuilderBundle\Entity\Form')
