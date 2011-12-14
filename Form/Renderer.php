@@ -47,7 +47,9 @@ class Renderer
             ->getForm()
             ->createView();
 
-        $this->formExtension->setTheme($formView, $this->themes);
+        if (!empty($this->themes)) {
+            $this->formExtension->setTheme($formView, $this->themes);
+        }
 
         return $this->formExtension->renderRow($formView);
     }
