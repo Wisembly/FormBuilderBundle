@@ -58,8 +58,11 @@ class Renderer
     {
         $formType = $this->formFactory->getType($type);
         $typeOptions = $this->builder->getTypeOptions($formType, $options);
-        $formType = $this->formFactory->getType($type);
         $formView = $this->builder->buildType($formType, $typeOptions)->createView();
+
+        if (!empty($this->themes)) {
+            $this->formExtension->setTheme($formView, $this->themes);
+        }
 
         return $this->formExtension->renderRow($formView);
     }
