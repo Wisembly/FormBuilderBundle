@@ -79,8 +79,24 @@ class FormField implements FormFieldInterface
     {
         $field = null === $field ? new static() : $field;
 
-        if (isset($data['type']))       $field->setType($data['type']);
-        if (isset($data['options']))    $field->setOptions($data['options']);
+        if (isset($data['type'])) {
+            $field->setType($data['type']);
+        }
+
+        if (isset($data['options'])) {
+            // fix boolean casting
+            foreach ($data['options'] as $key => $val) {
+                if ('false' === $val) $data['options'][$key] = false;
+                if ('true' === $val) $data['options'][$key] = true;
+            }
+
+            // remove empty choices
+            if (isset($data['options']['choices'])) {
+                $data['options']['choices'] = array_filter($data['options']['choices'], 'strlen');
+            }
+
+            $field->setOptions($data['options']);
+        }
 
         return $field;
     }
