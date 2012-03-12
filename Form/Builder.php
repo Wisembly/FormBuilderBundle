@@ -126,7 +126,7 @@ class Builder
      * @param FormTypeInterface $type   The FormType
      * @param array $values             Values for FormType options
      */
-    public function getTypeOptions(FormTypeInterface $type, array $values = array())
+    public function getTypeOptions(FormTypeInterface $type, array $values = array(), $tag = null)
     {
         
         if (isset($values['multiple'])) {
@@ -136,6 +136,10 @@ class Builder
         $options = isset($this->fieldConfig[$type->getName()])
             ? $this->fieldConfig[$type->getName()]
             : $type->getDefaultOptions(array());
+
+        if ($tag != null) {
+            $this->fieldConfig['html']['tag'] = $tag;
+        }
 
         foreach ($options as $option => $val) {
 
