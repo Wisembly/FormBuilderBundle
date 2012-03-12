@@ -137,11 +137,9 @@ class Builder
             ? $this->fieldConfig[$type->getName()]
             : $type->getDefaultOptions(array());
 
-
         if ($tag != null) {
             $this->fieldConfig['html']['tag'] = $tag;
         }
-
 
         foreach ($options as $option => $val) {
 
