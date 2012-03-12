@@ -128,6 +128,11 @@ class Builder
      */
     public function getTypeOptions(FormTypeInterface $type, array $values = array())
     {
+        
+        if (isset($values['multiple'])) {
+            $this->fieldConfig['choice']['expanded'] = true;
+        }
+        
         $options = isset($this->fieldConfig[$type->getName()])
             ? $this->fieldConfig[$type->getName()]
             : $type->getDefaultOptions(array());
