@@ -11,7 +11,7 @@
 
 namespace Balloon\Bundle\FormBuilderBundle\Form;
 
-use Symfony\Component\HttpFoundation\Session;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Storage
@@ -24,7 +24,7 @@ class Storage
 
     public function __construct(Session $session)
     {
-        $this->session          = $session;
+        $this->session = $session;
     }
 
     public function generateId()
