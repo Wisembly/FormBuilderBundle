@@ -33,7 +33,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
             ->arrayNode('resources')
-                ->addDefaultsIfNotSet()
                 ->defaultValue(array())
                 ->validate()
                     ->ifTrue(function($v) { return empty($v); })
