@@ -1,6 +1,3 @@
-Requirements :
- Symfony 2.1
- 
 
 Let your users create dynamic forms and store them in the database.
 
@@ -11,6 +8,10 @@ Features:
 - Answer to a form
 - View form results
 
+## Requirements :
+ Symfony 2.1.<br/>
+ For a Symfony 2.0 compliant version, see symfony_2.0_compliant branch
+ 
 ## Installation
 
 Clone the project:
