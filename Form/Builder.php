@@ -167,12 +167,8 @@ class Builder
         }
 
         // if the field name is 'choices' we add some fields
-        if (isset($values['choices'])) {
-            array_unshift($values['choices'],"");
-            unset($values['choices'][0]);
-            if (false === array_search('', $values['choices'])) {
-                $values['choices'] += array_fill(count($values['choices']), count($values['choices']) + 2, '');
-            }
+        if (isset($values['choices']) && false === array_search('', $values['choices'])) {  	
+            $values['choices'] += array_fill(count($values['choices']), count($values['choices']) + 2, '');
         }
 
         return $values;
