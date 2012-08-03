@@ -116,3 +116,4 @@ Your done now go to `/app_dev.php/form`
 ## Contributors
 
 creator [gordonslondon](http://github.com/gordonslondon)
+maintener [guillaumepotier]
