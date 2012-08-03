@@ -1,5 +1,5 @@
 {
-    "name": "balloon/FormBuilderBundle",
+    "name": "balloon/formbuilderbundle",
     "type": "Bundle",
     "description": "Store your custom forms as Doctrine entities",
     "keywords": ["Symfony2", "Bundle", "Forms", "FormBuilder"],
