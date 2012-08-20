@@ -1,3 +1,5 @@
+### /!\This bundle has not been updated to Symfony 2.1-RC2+ and is no longer maintained by Balloon/!\
+
 
 Let your users create dynamic forms and store them in the database.
 
@@ -9,15 +11,15 @@ Features:
 - View form results
 
 ## Requirements :
- Symfony 2.1.<br/>
- For a Symfony 2.0 compliant version, see symfony_2.0_compliant branch
+ For Symfony 2.1-RC1, use 1.1 tag  
+ For a Symfony 2.0 compliant version, use 1.0 tag
  
-## Installation
+## Installation (for 2.0 and 2.1-RC1 use, without composer)
 
 Clone the project:
 
 ```bash
-$ git submodule add -f git@github.com:Balloon/FormBuilderBundle.git vendor/bundles/Balloon/Bundle/FormBuilderBundle
+$ git submodule add -f git://github.com/Balloon/FormBuilderBundle.git vendor/bundles/Balloon/Bundle/FormBuilderBundle
 ```
 
 Register the bundle in `app/AppKernel.php`:
